@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Contabilidad</title>
+
+    <style>
+        /* Reset y configuración base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Páginas */
+        .page {
+            display: none;
+            flex: 1;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Menú principal */
+        .quiz-menu {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+
+        .quiz-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Botones principales */
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 20px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Quiz container */
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-home {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-home:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Instrucciones */
+        .instructions {
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .instructions p {
+            margin: 0;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+
+        /* Pregunta */
+        .question {
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .question-intro {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+
+        .question-intro p {
+            margin: 0;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Opciones */
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-color: #007bff;
+            color: white;
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+            border-color: #28a745;
+            color: white;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #ff7979 0%, #eb4d4b 100%);
+            border-color: #dc3545;
+            color: white;
+        }
+
+        /* Botón validar */
+        .btn-validate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-validate:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-validate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        /* Resultados finales */
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .results h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .results .score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .results .message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-container,
+            .quiz-menu {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .quiz-container,
+            .quiz-menu {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quiz de Contabilidad</h1>
+            <p>Plan General de Contabilidad y Marco Conceptual</p>
+        </div>
+
+        <!-- Página del menú principal -->
+        <div class="page active" id="menu-page">
+            <div class="quiz-menu">
+                <h2>Selecciona un Quiz</h2>
+                <div class="quiz-list" id="quiz-list">
+                    <!-- Los quizzes se cargan dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Página del quiz -->
+        <div class="page" id="quiz-page">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2 class="quiz-title" id="quiz-title">Título del Quiz</h2>
+                    <button class="btn btn-home" onclick="showPage('menu-page')">🏠 Inicio</button>
+                </div>
+
+                <div class="instructions">
+                    <p>💡 Puedes seleccionar una o varias respuestas antes de validar. Algunas preguntas tienen más de una opción correcta.</p>
+                </div>
+
+                <div id="quiz-content">
+                    <!-- Las preguntas se cargan dinámicamente aquí -->
+                </div>
+
+                <div class="results" id="final-results" style="display: none;">
+                    <h3>¡Quiz Completado!</h3>
+                    <div class="score" id="final-score">0%</div>
+                    <div class="message" id="final-message">¡Buen trabajo!</div>
+                    <button class="btn" onclick="showPage('menu-page')">🏠 Volver al Menú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de los quizzes - AQUÍ PUEDES AÑADIR NUEVOS QUIZZES
+        const quizData = {
+            "contabilidad-basica": {
+                title: "Introducción al Plan General de Contabilidad",
+                questions: [
+                    {
+                        intro: "El Plan General de Contabilidad (PGC) es el marco normativo que regula la contabilidad en España. Establece los principios, criterios y normas contables que deben seguir las empresas para elaborar sus estados financieros. Su objetivo principal es homogeneizar la información contable y garantizar que sea útil para la toma de decisiones económicas.",
+                        question: "¿Cuáles son los objetivos principales del Plan General de Contabilidad?",
+                        options: [
+                            "Homogeneizar la información contable entre empresas",
+                            "Garantizar la utilidad de la información para la toma de decisiones",
+                            "Establecer criterios fiscales para el cálculo de impuestos",
+                            "Facilitar la comparabilidad de la información financiera"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "El marco conceptual de la contabilidad define los conceptos fundamentales sobre los que se basa la información financiera. Incluye las características cualitativas de la información contable como la relevancia, fiabilidad, comparabilidad y comprensibilidad. Estas características aseguran que los estados financieros sean útiles para los usuarios.",
+                        question: "¿Cuáles son las características cualitativas fundamentales de la información contable?",
+                        options: [
+                            "Relevancia y fiabilidad",
+                            "Comprensibilidad y comparabilidad",
+                            "Materialidad y prudencia",
+                            "Verificabilidad y representación fiel"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "Los elementos de los estados financieros son los componentes básicos que reflejan la situación económica y financiera de una empresa. Se clasifican en elementos relacionados con la situación financiera (activos, pasivos y patrimonio neto) y elementos relacionados con el rendimiento (ingresos y gastos).",
+                        question: "¿Cuáles son los elementos básicos de los estados financieros?",
+                        options: [
+                            "Activos, pasivos y patrimonio neto",
+                            "Ingresos y gastos",
+                            "Flujos de efectivo",
+                            "Capital social"
+                        ],
+                        correct: [0, 1]
+                    },
+                    {
+                        intro: "Un activo es un recurso controlado por la empresa como resultado de eventos pasados, del cual se espera obtener beneficios económicos futuros. Para ser reconocido como activo, debe cumplir criterios de identificabilidad, control y beneficio económico futuro. Los activos se clasifican según su naturaleza y liquidez.",
+                        question: "¿Qué características debe cumplir un elemento para ser considerado activo?",
+                        options: [
+                            "Ser controlado por la empresa",
+                            "Resultar de eventos pasados",
+                            "Proporcionar beneficios económicos futuros",
+                            "Tener valor de mercado conocido"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "Los pasivos representan obligaciones presentes de la empresa surgidas como consecuencia de eventos pasados, cuya liquidación se espera que resulte en una salida de recursos que incorporan beneficios económicos. Los pasivos incluyen deudas, provisiones y otras obligaciones.",
+                        question: "¿Qué define a un pasivo en contabilidad?",
+                        options: [
+                            "Una obligación presente de la empresa",
+                            "Un compromiso futuro de pago",
+                            "Resulta de eventos pasados",
+                            "Su liquidación implica salida de beneficios económicos"
+                        ],
+                        correct: [0, 2, 3]
+                    },
+                    {
+                        intro: "El patrimonio neto representa la participación residual de los propietarios en los activos de la empresa, después de deducir todos los pasivos. Se compone principalmente del capital aportado por los socios, las reservas acumuladas y los resultados del ejercicio. Es el 'valor contable' de la empresa para sus propietarios.",
+                        question: "¿Cómo se calcula el patrimonio neto?",
+                        options: [
+                            "Activo - Pasivo = Patrimonio Neto",
+                            "Capital + Reservas + Resultado del ejercicio",
+                            "Suma de todos los activos",
+                            "Ingresos menos gastos del ejercicio"
+                        ],
+                        correct: [0, 1]
+                    },
+                    {
+                        intro: "Los principios contables son las reglas fundamentales que guían la preparación de los estados financieros. Incluyen principios como empresa en funcionamiento (la empresa continuará operando), devengo (reconocer transacciones cuando ocurren), uniformidad (usar criterios consistentes) y prudencia (ser conservador ante incertidumbres).",
+                        question: "¿Cuáles son principios contables fundamentales del PGC?",
+                        options: [
+                            "Empresa en funcionamiento",
+                            "Principio de devengo",
+                            "Uniformidad en la aplicación de criterios",
+                            "Precio de adquisición"
+                        ],
+                        correct: [0, 1, 2, 3]
+                    },
+                    {
+                        intro: "El criterio de reconocimiento determina cuándo un elemento debe incluirse en los estados financieros. Para activos y pasivos, se requiere que sea probable que fluyan beneficios económicos y que el elemento tenga un costo o valor que pueda medirse de forma fiable. Para ingresos y gastos se aplican criterios similares.",
+                        question: "¿Cuándo debe reconocerse un elemento en los estados financieros?",
+                        options: [
+                            "Cuando sea probable que genere beneficios económicos",
+                            "Cuando pueda medirse de forma fiable",
+                            "Cuando se realice el pago en efectivo",
+                            "Cuando cumple la definición del elemento correspondiente"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "La valoración contable establece cómo se asignan importes monetarios a los elementos de los estados financieros. Los criterios principales incluyen el costo histórico (precio de adquisición), valor razonable (precio de mercado), valor neto realizable y valor actual. La elección del criterio depende del tipo de elemento y las circunstancias.",
+                        question: "¿Cuáles son los principales criterios de valoración en contabilidad?",
+                        options: [
+                            "Costo histórico o precio de adquisición",
+                            "Valor razonable o de mercado",
+                            "Valor neto realizable",
+                            "Valor nominal"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "Los estados financieros básicos que debe preparar una empresa según el PGC incluyen: el balance de situación (posición financiera), la cuenta de pérdidas y ganancias (rendimiento), el estado de cambios en el patrimonio neto, el estado de flujos de efectivo y la memoria (información complementaria). Juntos proporcionan una visión completa de la empresa.",
+                        question: "¿Cuáles son los estados financieros básicos según el PGC?",
+                        options: [
+                            "Balance de situación",
+                            "Cuenta de pérdidas y ganancias",
+                            "Estado de flujos de efectivo",
+                            "Estado de cambios en el patrimonio neto"
+                        ],
+                        correct: [0, 1, 2, 3]
+                    },
+                    {
+                        intro: "El balance de situación presenta la situación financiera de la empresa en un momento determinado. Muestra los activos (recursos de la empresa), pasivos (obligaciones) y patrimonio neto (participación de los propietarios). Debe cumplir la ecuación fundamental: Activo = Pasivo + Patrimonio Neto.",
+                        question: "¿Qué información proporciona el balance de situación?",
+                        options: [
+                            "La situación financiera en un momento específico",
+                            "Los recursos controlados por la empresa (activos)",
+                            "Las obligaciones de la empresa (pasivos)",
+                            "Los ingresos obtenidos durante el ejercicio"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "La cuenta de pérdidas y ganancias muestra los ingresos, gastos y resultado de la empresa durante un período determinado (normalmente un año). Refleja la capacidad de la empresa para generar beneficios y muestra cómo se ha formado el resultado del ejercicio a través de las diferentes actividades empresariales.",
+                        question: "¿Qué refleja la cuenta de pérdidas y ganancias?",
+                        options: [
+                            "Los ingresos obtenidos durante el período",
+                            "Los gastos incurridos durante el período",
+                            "El resultado del ejercicio (beneficio o pérdida)",
+                            "La posición financiera al final del período"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "El principio de devengo establece que las transacciones se registran cuando ocurren, independientemente de cuándo se produzca el cobro o pago. Esto significa que los ingresos se reconocen cuando se ganan y los gastos cuando se incurren, no necesariamente cuando hay movimiento de efectivo.",
+                        question: "¿Qué implica el principio de devengo?",
+                        options: [
+                            "Registrar transacciones cuando ocurren, no cuando se cobran o pagan",
+                            "Reconocer ingresos cuando se ganan",
+                            "Reconocer gastos cuando se incurren",
+                            "Registrar solo cuando hay movimiento de efectivo"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "La materialidad o importancia relativa establece que la información es material si su omisión o inexactitud podría influir en las decisiones económicas de los usuarios. No existe una regla fija, pero generalmente se considera material si supera el 5% del resultado o activos totales. Este concepto permite enfocar esfuerzos en aspectos significativos.",
+                        question: "¿Cuándo se considera que una información es material o significativa?",
+                        options: [
+                            "Cuando su omisión podría influir en decisiones de usuarios",
+                            "Cuando supera un umbral cuantitativo establecido",
+                            "Cuando afecta a la imagen fiel de los estados financieros",
+                            "Solo cuando implica movimientos de efectivo"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "La imagen fiel es el objetivo principal de los estados financieros según el PGC. Significa que la información debe representar fielmente la realidad económica y financiera de la empresa. Cuando la aplicación de una norma contable no permite alcanzar la imagen fiel, se debe suministrar información complementaria en la memoria.",
+                        question: "¿Qué significa que los estados financieros muestren la imagen fiel?",
+                        options: [
+                            "Representar fielmente la realidad económica de la empresa",
+                            "Cumplir estrictamente todas las normas contables",
+                            "Proporcionar información útil para la toma de decisiones",
+                            "Mostrar únicamente valores de mercado actualizados"
+                        ],
+                        correct: [0, 2]
+                    }
+                ]
+            }
+        };
+
+        // Variables globales
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        // Funciones principales
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function loadQuizMenu() {
+            const quizList = document.getElementById('quiz-list');
+            quizList.innerHTML = '';
+            
+            Object.keys(quizData).forEach(quizId => {
+                const quiz = quizData[quizId];
+                const button = document.createElement('button');
+                button.className = 'btn';
+                button.innerHTML = `
+                    <div style="text-align: left;">
+                        <div style="font-size: 1.2rem; margin-bottom: 5px;">${quiz.title}</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">${quiz.questions.length} preguntas</div>
+                    </div>
+                `;
+                button.onclick = () => startQuiz(quizId);
+                quizList.appendChild(button);
+            });
+        }
+
+        function startQuiz(quizId) {
+            currentQuiz = quizData[quizId];
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            quizCompleted = false;
+            
+            document.getElementById('quiz-title').textContent = currentQuiz.title;
+            document.getElementById('final-results').style.display = 'none';
+            
+            loadAllQuestions();
+            showPage('quiz-page');
+        }
+
+        function loadAllQuestions() {
+            const container = document.getElementById('quiz-content');
+            container.innerHTML = '';
+            
+            currentQuiz.questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${index}`;
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Pregunta ${index + 1} de ${currentQuiz.questions.length}</div>
+                    
+                    <div class="question-intro">
+                        <p>${question.intro}</p>
+                    </div>
+                    
+                    <div class="question-text">${question.question}</div>
+                    
+                    <div class="options" id="options-${index}">
+                        ${question.options.map((option, optIndex) => `
+                            <div class="option" data-question="${index}" data-option="${optIndex}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <button class="btn btn-validate" id="validate-${index}" onclick="validateQuestion(${index})">
+                        ✓ Validar Respuesta
+                    </button>
+                    
+                    <div class="feedback" id="feedback-${index}" style="display: none;"></div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+            
+            // Añadir eventos a las opciones
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+        }
+
+        function selectOption(event) {
+            const option = event.target;
+            const questionIndex = option.dataset.question;
+            
+            // Toggle selection
+            option.classList.toggle('selected');
+            
+            // Check if any option is selected for this question
+            const selectedOptions = document.querySelectorAll(`[data-question="${questionIndex}"].selected`);
+            const validateBtn = document.getElementById(`validate-${questionIndex}`);
+            validateBtn.disabled = selectedOptions.length === 0;
+        }
+
+        function validateQuestion(questionIndex) {
+            const question = currentQuiz.questions[questionIndex];
+            const selectedOptions = document.querySelectorAll(`[data-question="${questionIndex}"].selected`);
+            const selectedIndices = Array.from(selectedOptions).map(opt => parseInt(opt.dataset.option));
+            
+            // Store user answer
+            userAnswers[questionIndex] = selectedIndices;
+            
+            // Check if answer is correct
+            const correctIndices = question.correct;
+            const isCorrect = selectedIndices.length === correctIndices.length && 
+                             selectedIndices.every(index => correctIndices.includes(index));
+            
+            // Update option styles
+            const allOptions = document.querySelectorAll(`[data-question="${questionIndex}"]`);
+            allOptions.forEach((option, index) => {
+                option.classList.remove('selected');
+                if (correctIndices.includes(index)) {
+                    option.classList.add('correct');
+                } else if (selectedIndices.includes(index)) {
+                    option.classList.add('incorrect');
+                }
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Show feedback
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.style.display = 'block';
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = isCorrect 
+                ? '🎉 ¡Correcto! Has identificado todas las respuestas correctas.'
+                : `❌ Incorrecto. Las respuestas correctas eran: ${correctIndices.map(i => question.options[i]).join(', ')}`;
+            
+            // Disable validate button
+            document.getElementById(`validate-${questionIndex}`).disabled = true;
+            
+            // Check if all questions are completed
+            checkQuizCompletion();
+        }
+
+        function checkQuizCompletion() {
+            if (userAnswers.filter(answer => answer !== undefined).length === currentQuiz.questions.length) {
+                // All questions answered, show results after a delay
+                setTimeout(showResults, 1000);
+            }
+        }
+
+        function showResults() {
+            let correctCount = 0;
+            
+            currentQuiz.questions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const correctAnswer = question.correct;
+                
+                if (userAnswer && userAnswer.length === correctAnswer.length && 
+                    userAnswer.every(ans => correctAnswer.includes(ans))) {
+                    correctCount++;
+                }
+            });
+            
+            const percentage = Math.round((correctCount / currentQuiz.questions.length) * 100);
+            
+            // Show results
+            document.getElementById('final-score').textContent = `${percentage}%`;
+            document.getElementById('final-message').textContent = getMotivationalMessage(percentage);
+            document.getElementById('final-results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('final-results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getMotivationalMessage(percentage) {
+            if (percentage >= 90) {
+                return "¡Excelente! Dominas perfectamente los conceptos de contabilidad. 🏆";
+            } else if (percentage >= 75) {
+                return "¡Muy bien! Tienes un buen dominio de los fundamentos contables. 👏";
+            } else if (percentage >= 60) {
+                return "¡Bien hecho! Continúa estudiando para mejorar tu comprensión. 📚";
+            } else if (percentage >= 40) {
+                return "Buen intento. Te recomiendo revisar los conceptos y intentarlo de nuevo. 💪";
+            } else {
+                return "No te desanimes. La práctica hace al maestro. ¡Sigue adelante! 🌟";
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuizMenu();
+        });
+    </script>
+</body>
+</html>
