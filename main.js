@@ -1,24 +1,39 @@
 let currentQuizData = null;
 
+/**
+ * Cambia entre páginas del sistema (menú principal, menú de contabilidad, quiz)
+ * @param {string} pageId - ID de la página a mostrar
+ */
 function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
     document.getElementById(pageId).classList.add('active');
 }
 
+/**
+ * Se ejecuta al cargar la página. Asocia eventos a los botones del menú.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    const quizList = document.querySelectorAll('[data-quiz]');
-    quizList.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const quizId = btn.getAttribute('data-quiz');
+    const quizButtons = document.querySelectorAll('[data-quiz]');
+    quizButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const quizId = button.getAttribute('data-quiz');
             loadQuiz(quizId);
         });
     });
 });
 
+/**
+ * Carga dinámicamente un quiz desde su archivo .json
+ * @param {string} quizId - Identificador del quiz (nombre del archivo sin .json)
+ */
 async function loadQuiz(quizId) {
     try {
         const response = await fetch(`js/quizzes/${quizId}.json`);
-        if (!response.ok) throw new Error('No se pudo cargar el quiz');
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: No se encontró el archivo ${quizId}.json`);
+        }
         currentQuizData = await response.json();
         document.getElementById('quiz-title').textContent = currentQuizData.title;
         const content = document.getElementById('quiz-content');
@@ -45,21 +60,35 @@ async function loadQuiz(quizId) {
 
         showPage('quiz-page');
     } catch (error) {
-        alert('Error al cargar el quiz: ' + error.message);
+        console.error('Error al cargar el quiz:', error);
+        alert('No se pudo cargar el quiz. Verifica que el archivo JSON exista y tenga formato correcto.');
     }
 }
 
+/**
+ * Permite seleccionar/deseleccionar una opción de respuesta
+ * @param {HTMLElement} option - El elemento de la opción
+ * @param {number} qIndex - Índice de la pregunta
+ * @param {number} oIndex - Índice de la opción
+ */
 function toggleSelect(option, qIndex, oIndex) {
     option.classList.toggle('selected');
 }
 
+/**
+ * Valida la respuesta seleccionada por el usuario
+ * @param {number} qIndex - Índice de la pregunta
+ * @param {number[]} correct - Array con los índices de las opciones correctas
+ */
 function validateAnswer(qIndex, correct) {
     const options = document.querySelectorAll(`#options-${qIndex} .option`);
     const feedback = document.getElementById(`feedback-${qIndex}`);
     let selected = [];
 
     options.forEach((opt, i) => {
-        if (opt.classList.contains('selected')) selected.push(i);
+        if (opt.classList.contains('selected')) {
+            selected.push(i);
+        }
     });
 
     if (selected.length === 0) {
@@ -69,8 +98,8 @@ function validateAnswer(qIndex, correct) {
         return;
     }
 
-    const isCorrect = selected.length === correct.length && 
-                      selected.every(i => correct.includes(i)) && 
+    const isCorrect = selected.length === correct.length &&
+                      selected.every(i => correct.includes(i)) &&
                       correct.every(i => selected.includes(i));
 
     feedback.textContent = isCorrect ? '¡Correcto!' : 'Incorrecto. Revisa tus selecciones.';
@@ -78,14 +107,22 @@ function validateAnswer(qIndex, correct) {
     feedback.style.display = 'block';
 
     options.forEach((opt, i) => {
-        if (correct.includes(i)) opt.classList.add('correct');
-        else if (selected.includes(i) && !correct.includes(i)) opt.classList.add('incorrect');
+        if (correct.includes(i)) {
+            opt.classList.add('correct');
+        } else if (selected.includes(i) && !correct.includes(i)) {
+            opt.classList.add('incorrect');
+        }
         opt.style.pointerEvents = 'none';
     });
 
+    // Deshabilitar botón de validación
     document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
 }
 
+/**
+ * Abre el modal con información adicional ("Saber más")
+ * @param {number} qIndex - Índice de la pregunta
+ */
 function openModal(qIndex) {
     const modal = document.getElementById('saberMasModal');
     const content = document.getElementById('saberMasContent');
@@ -94,11 +131,19 @@ function openModal(qIndex) {
     modal.style.display = 'flex';
 }
 
+/**
+ * Cierra el modal de "Saber más"
+ */
 function closeModal() {
     document.getElementById('saberMasModal').style.display = 'none';
 }
 
+/**
+ * Cierra el modal si se hace clic fuera del contenido
+ */
 window.onclick = function(event) {
     const modal = document.getElementById('saberMasModal');
-    if (event.target === modal) closeModal();
+    if (event.target === modal) {
+        closeModal();
+    }
 };
