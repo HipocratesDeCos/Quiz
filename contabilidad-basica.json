@@ -38,6 +38,7 @@
       "saber_mas": "<p>El PGC establece seis <u>principios contables</u> obligatorios: <u>empresa en funcionamiento</u>, <u>devengo</u>, <u>uniformidad</u>, <u>prudencia</u>, <u>no compensación</u> e <u>importancia relativa</u>. Estos principios se aplican en el reconocimiento, registro y valoración de los elementos de las cuentas anuales.</p><p>El principio de <u>empresa en funcionamiento</u> asume que la empresa continuará su actividad indefinidamente. El de <u>devengo</u> exige registrar ingresos y gastos cuando se generan, no cuando se cobran o pagan. El de <u>prudencia</u> implica no sobrevalorar activos ni infravalorar pasivos.</p><p>En caso de conflicto entre principios, prevalecerá el que mejor conduzca a expresar la <u>imagen fiel</u> del patrimonio y resultados.</p>"
     },
     {
+      "intro": "La información contable debe ser útil para los usuarios que toman decisiones económicas.",
       "question": "4. Según el marco conceptual, ¿qué caracteriza a la información contable útil?",
       "options": [
         "Relevancia y fiabilidad",
@@ -49,6 +50,7 @@
       "saber_mas": "<p>La información contable útil debe cumplir con los <u>requisitos de relevancia y fiabilidad</u>, que son fundamentales para la toma de decisiones económicas. La <u>relevancia</u> implica que la información influye en las decisiones de los usuarios, por ejemplo, al evaluar flujos de caja futuros.</p><p>La <u>fiabilidad</u> exige que la información sea veraz, completa y libre de sesgos, representando fielmente lo que pretende mostrar. A partir de estas dos cualidades, se derivan otras: <u>comparabilidad</u>, <u>integridad</u> y <u>claridad</u>.</p><p>El PGC se enmarca en el <u>paradigma de utilidad de la información</u>, orientando el contenido de los estados financieros a suministrar un apoyo informativo adecuado a los usuarios.</p>"
     },
     {
+      "intro": "Las cuentas anuales reflejan el patrimonio, la situación financiera y el resultado de la empresa.",
       "question": "5. ¿Qué elementos definen las cuentas anuales según el PGC?",
       "options": [
         "Activos, pasivos y patrimonio neto",
@@ -60,6 +62,7 @@
       "saber_mas": "<p>Las <u>cuentas anuales</u> incluyen elementos relacionados con la <u>situación financiera</u> (activos, pasivos y patrimonio neto) y con el <u>rendimiento</u> (ingresos y gastos). Estos elementos se definen en el marco conceptual para cumplir con los objetivos de la información financiera.</p><p>El <u>activo</u> es un recurso controlado por la empresa del que se espera obtener beneficios económicos futuros. El <u>pasivo</u> es una obligación presente que surgirá de eventos pasados. El <u>patrimonio neto</u> es la diferencia entre activo y pasivo.</p><p>Los <u>ingresos</u> y <u>gastos</u> se reconocen en la cuenta de pérdidas y ganancias y reflejan el resultado del ejercicio. Los flujos de efectivo, aunque relevantes, no son un elemento básico del marco conceptual.</p>"
     },
     {
+      "intro": "El principio del devengo es fundamental para reflejar el resultado real del ejercicio.",
       "question": "6. ¿Qué establece el principio del devengo?",
       "options": [
         "Registrar ingresos y gastos cuando se cobran o pagan",
@@ -71,6 +74,7 @@
       "saber_mas": "<p>El <u>principio del devengo</u> establece que los ingresos y gastos deben reconocerse en el período en que se generan, <u>independientemente de cuándo se cobren o paguen</u>. Es fundamental para reflejar fielmente el resultado del ejercicio.</p><p>Por ejemplo, si una empresa presta un servicio en diciembre pero cobra en enero, el ingreso se registra en diciembre. Esto evita distorsiones por la cronología del cobro y permite una adecuada <u>asociación de ingresos y gastos</u> en el mismo período.</p><p>Este principio es clave para diferenciar entre <u>resultado</u> y <u>tesorería</u>, asegurando que el beneficio refleje la actividad real del ejercicio.</p>"
     },
     {
+      "intro": "La continuidad de la actividad es una hipótesis clave para la valoración de activos y pasivos.",
       "question": "7. ¿Qué significa el principio de 'empresa en funcionamiento'?",
       "options": [
         "La empresa está en proceso de liquidación",
@@ -82,6 +86,7 @@
       "saber_mas": "<p>El principio de <u>empresa en funcionamiento</u> (o empresa en marcha) asume que la empresa <u>continuará su actividad de forma indefinida</u> y no tiene intención ni necesidad de liquidarse o reducir sustancialmente su actividad.</p><p>Esta hipótesis es fundamental para la valoración de activos y pasivos. Por ejemplo, los activos no se valoran al precio de liquidación, sino al costo o valor razonable, asumiendo que se usarán en la actividad futura.</p><p>Si no se aplicara este principio, la presentación del balance sería completamente distinta, enfocada en la realización inmediata de activos y pago de pasivos.</p>"
     },
     {
+      "intro": "Para que un elemento sea activo, debe cumplir ciertos criterios de reconocimiento.",
       "question": "8. ¿Cuál es el criterio para reconocer un activo?",
       "options": [
         "Ser un recurso controlado por la empresa",
@@ -93,6 +98,7 @@
       "saber_mas": "<p>Para que un elemento sea reconocido como <u>activo</u>, debe cumplir tres condiciones: <u>ser controlado por la empresa</u>, <u>provenir de eventos pasados</u> y <u>esperarse que genere beneficios económicos futuros</u>.</p><p>Por ejemplo, una máquina adquirida en un leasing financiero es un activo porque la empresa la controla, fue adquirida en el pasado y generará producción futura. No es necesario que tenga un valor de mercado conocido; un software desarrollado internamente puede ser un activo si cumple los criterios.</p><p>Este principio asegura que solo se registren recursos que realmente aporten valor a la empresa, garantizando la <u>imagen fiel</u> del patrimonio.</p>"
     },
     {
+      "intro": "La prudencia evita la sobrevaloración de activos y la infravaloración de pasivos.",
       "question": "9. ¿Qué caracteriza al principio de prudencia?",
       "options": [
         "No sobrevalorar activos",
@@ -104,6 +110,7 @@
       "saber_mas": "<p>El <u>principio de prudencia</u> exige no <u>sobrevalorar activos ni ingresos</u>, ni <u>infravalorar pasivos ni gastos</u>. Su objetivo es introducir un matiz conservador en la valoración contable, especialmente cuando hay incertidumbre.</p><p>Por ejemplo, se deben dotar <u>provisiones</u> por posibles pérdidas, pero no se pueden reconocer ganancias futuras hasta que se materialicen. Esto evita una imagen optimista de la situación financiera.</p><p>La prudencia no permite crear reservas ocultas ni ocultar beneficios, sino aplicar un criterio razonable ante la incertidumbre, reforzando la <u>fiabilidad</u> de la información.</p>"
     },
     {
+      "intro": "La presentación de los elementos del balance debe respetar su valor bruto.",
       "question": "10. ¿Qué establece el principio de no compensación?",
       "options": [
         "Se pueden compensar activos y pasivos de distinta naturaleza",
@@ -115,6 +122,7 @@
       "saber_mas": "<p>El principio de <u>no compensación</u> establece que los elementos del balance (activos y pasivos) y de la cuenta de resultados (ingresos y gastos) deben presentarse <u>por su valor bruto</u>, sin compensar partidas de distinta naturaleza.</p><p>Por ejemplo, no se puede compensar una deuda con un cliente; deben aparecer por separado en el balance. Esto asegura la <u>transparencia</u> y evita distorsionar la situación financiera.</p><p>La única excepción son las normas específicas que permiten compensaciones justificadas, como en derivados financieros o saldos de cuentas deudoras y acreedoras con el mismo cliente.</p>"
     },
     {
+      "intro": "El PGC se estructura en cinco partes, pero no todas son de obligado cumplimiento.",
       "question": "11. ¿Qué partes del PGC son de obligado cumplimiento?",
       "options": [
         "Marco conceptual, normas de registro y cuentas anuales",
@@ -126,6 +134,7 @@
       "saber_mas": "<p>Las tres primeras partes del PGC son de <u>obligado cumplimiento</u>: <u>Marco conceptual</u>, <u>Normas de registro y valoración</u> y <u>Cuentas anuales</u>. Estas establecen los principios, criterios y formatos que deben seguir las empresas.</p><p>Las partes cuarta (<u>Cuadro de cuentas</u>) y quinta (<u>Definiciones y relaciones contables</u>) son <u>voluntarias</u>, aunque la numeración y denominación de las cuentas constituye una <u>guía obligada</u> para la presentación de las cuentas anuales.</p><p>Esto permite flexibilidad en la contabilidad interna, pero uniformidad en la información externa, asegurando la <u>comparabilidad</u> entre empresas.</p>"
     },
     {
+      "intro": "Los usuarios principales de la información financiera son inversores y analistas.",
       "question": "12. ¿Qué usuarios principales de la información financiera identifica el PGC?",
       "options": [
         "Inversores y analistas financieros",
@@ -137,6 +146,7 @@
       "saber_mas": "<p>El PGC establece que los <u>principales destinatarios</u> de la información financiera son los <u>inversores y analistas financieros</u>. Su función básica es apoyar la toma de decisiones económicas, como inversiones o concesión de crédito.</p><p>La función de control y rendición de cuentas al propietario o acreedor queda relegada a un segundo plano, aunque también es relevante. El PGC, alineado con las normas IASB, prioriza la utilidad de la información para el mercado.</p><p>Esta orientación define el contenido de los estados financieros, enfocándolos a suministrar un <u>apoyo informativo adecuado</u> para la toma de decisiones económicas.</p>"
     },
     {
+      "intro": "La forma legal no debe ocultar la verdadera naturaleza económica de una operación.",
       "question": "13. ¿Qué es la 'esencia económica sobre la forma legal'?",
       "options": [
         "Registrar operaciones según su apariencia legal",
@@ -148,6 +158,7 @@
       "saber_mas": "<p>El principio de <u>esencia económica sobre la forma legal</u> exige que las operaciones se registren según su <u>verdadera naturaleza económica</u>, no solo por su forma jurídica o apariencia legal.</p><p>Por ejemplo, en un leasing financiero, aunque legalmente no se transfiera la propiedad, económicamente la empresa controla el activo y asume sus riesgos y beneficios, por lo que se registra como activo y pasivo.</p><p>Este principio es clave para garantizar la <u>imagen fiel</u> y evitar prácticas de maquillaje contable que distorsionen la realidad económica de la empresa.</p>"
     },
     {
+      "intro": "La importancia relativa permite simplificar la información sin afectar la toma de decisiones.",
       "question": "14. ¿Qué es la 'importancia relativa' en contabilidad?",
       "options": [
         "Solo registrar partidas de gran cuantía",
@@ -159,6 +170,7 @@
       "saber_mas": "<p>La <u>importancia relativa</u> (o materialidad) permite omitir o agrupar partidas cuya <u>omisión o error no influya significativamente</u> en las decisiones de los usuarios de la información financiera.</p><p>Es un criterio de juicio que evita una carga innecesaria de detalle. Por ejemplo, un gasto pequeño de oficina puede no detallarse individualmente si su impacto es mínimo.</p><p>Sin embargo, no permite ignorar partidas relevantes solo por su cuantía, especialmente si afectan a la imagen fiel del conjunto de las cuentas anuales.</p>"
     },
     {
+      "intro": "En caso de conflicto entre principios, debe prevalecer el que mejor conduzca a la imagen fiel.",
       "question": "15. ¿Qué ocurre en caso de conflicto entre principios contables?",
       "options": [
         "Se aplica el principio más favorable al beneficio",
