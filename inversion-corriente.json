@@ -2,7 +2,7 @@
   "title": "Inversión Corriente - Activo Circulante",
   "questions": [
     {
-      "intro": "El activo corriente incluye elementos que se espera realizar, vender o consumir en el curso normal del ciclo de explotación de la empresa, que normalmente es de un año.",
+      "intro": "El activo corriente comprende aquellos elementos del patrimonio que se espera realizar, vender o consumir en el curso normal del ciclo de explotación de la empresa, que generalmente no supera el año. Este grupo incluye existencias, deudores comerciales y tesorería, y es fundamental para la gestión diaria y la solvencia a corto plazo. Las existencias son activos destinados a la venta, en proceso de producción o para ser consumidos en el proceso productivo. Los deudores comerciales, como clientes y efectos comerciales, representan derechos de cobro derivados de operaciones habituales. La tesorería incluye efectivo y equivalentes de efectivo. Su correcta valoración y gestión son esenciales para asegurar la continuidad de la actividad. A diferencia del activo no corriente, estos elementos están destinados a la rotación rápida y no al uso permanente, por lo que su liquidez es clave para hacer frente a las obligaciones a corto plazo.",
       "question": "1. ¿Cuáles son las características del activo corriente?",
       "options": [
         "Se realiza en el curso normal del ciclo de explotación",
@@ -14,7 +14,7 @@
       "saber_mas": "<p>El <u>activo corriente</u> está formado por aquellos elementos que la empresa espera <u>realizar, vender o consumir</u> en el <u>curso normal de su explotación</u>, que generalmente no supera el año. Esta categoría incluye <u>existencias</u> (grupo 3), <u>deudores comerciales</u> (grupo 4) y <u>tesorería</u> (grupo 5).</p><p>Su característica principal es la <u>liquidez</u>, es decir, la capacidad de convertirse en efectivo en el corto plazo. Por ejemplo, las <u>mercaderías</u> se venden, los <u>clientes</u> pagan, y el efectivo se utiliza para pagar proveedores.</p><p>Es clave para analizar la <u>solvencia a corto plazo</u> de la empresa. A diferencia del activo no corriente, no está destinado al uso permanente. Su correcta gestión asegura la continuidad operativa y evita problemas de tesorería.</p>"
     },
     {
-      "intro": "Las existencias son activos mantenidos para la venta en el curso ordinario del negocio, en proceso de producción para dicha venta, o en forma de materiales o suministros para ser consumidos en el proceso de producción o prestación de servicios.",
+      "intro": "Las existencias son activos que la empresa posee para su venta en el curso normal de la explotación, en proceso de producción para dicha venta, o en forma de materiales o suministros para ser consumidos en la producción o prestación de servicios. Se clasifican en materias primas, productos en curso, productos terminados y mercaderías. Su correcta valoración es esencial para determinar el coste de ventas y el beneficio bruto. Según el PGC, se valoran al coste de adquisición o producción, ajustado por el valor neto realizable si este es inferior, aplicando el principio de prudencia. Este ajuste, conocido como deterioro de valor, debe realizarse al cierre del ejercicio. Las existencias son el núcleo del ciclo de explotación y están sujetas a continuas compras y ventas.",
       "question": "2. ¿Qué tipos de existencias reconoce la contabilidad?",
       "options": [
         "Materias primas y otros aprovisionamientos",
@@ -26,6 +26,7 @@
       "saber_mas": "<p>La contabilidad reconoce varios tipos de <u>existencias</u> según su estado y finalidad. Las <u>materias primas</u> son bienes que se consumirán en el proceso productivo. Los <u>productos en curso</u> están en proceso de fabricación. Los <u>productos terminados</u> están listos para la venta. Las <u>mercaderías</u> son productos adquiridos para su reventa sin transformación.</p><p>Estas categorías se incluyen en el <u>grupo 3</u> del PGC. Es importante no confundirlas con el inmovilizado material, aunque una empresa pueda vender maquinaria usada; en ese caso, se trata de una <u>baja</u>, no de existencias.</p><p>Las existencias se valoran al <u>coste</u> o al <u>valor neto realizable</u>, según el criterio de prudencia. Además, deben revisarse anualmente por <u>deterioro de valor</u>. Una correcta clasificación y valoración es esencial para determinar el <u>coste de ventas</u> y el <u>beneficio bruto</u>.</p>"
     },
     {
+      "intro": "El deterioro de valor de las existencias es una reducción del valor contable cuando el valor neto realizable es inferior al valor en libros. Es una aplicación del principio de prudencia, que exige no sobrevalorar activos. El valor neto realizable es el precio de venta estimado menos los costes de venta. Por ejemplo, si unas mercaderías valen 50.000 € en libros pero su valor de venta esperado es 40.000 €, se debe dotar una corrección valorativa de 10.000 €. Este ajuste se registra con cargo a la cuenta (693) Pérdidas por deterioro de existencias y abono a (39) Correcciones valorativas de existencias. Es obligatorio para reflejar la imagen fiel del patrimonio. Si mejora la situación, puede revertirse, pero nunca por encima del valor contable original.",
       "question": "3. ¿Qué es el deterioro de valor de las existencias?",
       "options": [
         "Una revalorización por aumento de precios",
@@ -37,6 +38,7 @@
       "saber_mas": "<p>El <u>deterioro de valor de las existencias</u> es una reducción del valor contable cuando el <u>valor neto realizable</u> (precio de venta menos costes de venta) es inferior al valor en libros. Es un ajuste obligatorio para reflejar la <u>imagen fiel</u> del patrimonio.</p><p>Se registra con cargo a la cuenta <u>(693) Pérdidas por deterioro de existencias</u> y abono a <u>(39) Correcciones valorativas de existencias</u>. Por ejemplo, si unas mercaderías valen 50.000 € en libros pero su valor de venta esperado es 40.000 €, se debe dotar una corrección de 10.000 €.</p><p>Este deterioro es <u>reversible</u> si mejora la situación del mercado, pero nunca por encima del valor contable original. El movimiento es mecánico: se abona la cuenta de corrección al cierre del ejercicio y se carga en el siguiente, si procede.</p>"
     },
     {
+      "intro": "La devolución de compras es una operación que se produce cuando la empresa devuelve mercaderías o materiales adquiridos a un proveedor, por defectos, errores o acuerdo comercial. No se trata de un ingreso, sino de una anulación parcial de una compra previa. Se contabiliza con cargo a la cuenta (608) Devoluciones de compras y operaciones similares y abono a (400) Proveedores. Si el IVA es deducible, también se ajusta la cuenta (472) Hacienda Pública, IVA soportado. Este tratamiento reduce tanto el gasto como la deuda con el proveedor, reflejando fielmente el coste real de las compras. Es distinto de una venta negativa y no afecta al resultado como ingreso extraordinario.",
       "question": "4. ¿Cómo se contabiliza una devolución de compras?",
       "options": [
         "Como un ingreso extraordinario",
@@ -48,6 +50,7 @@
       "saber_mas": "<p>La <u>devolución de compras</u> se contabiliza con cargo a la cuenta <u>(608) Devoluciones de compras y operaciones similares</u> y abono a <u>(400) Proveedores</u>. Este tratamiento reduce tanto el gasto como la deuda con el proveedor.</p><p>Por ejemplo, si se devuelve mercadería por 615 € (30% de 2.050 €), el asiento sería: <u>615 € a (608)</u> y <u>615 € a (400)</u>. Si el IVA es deducible, también se ajusta la cuenta <u>(472) Hacienda Pública, IVA soportado</u>.</p><p>Este ajuste es clave para reflejar fielmente el <u>coste real de las compras</u> y la <u>situación de tesorería</u>. No se trata de un ingreso, sino de una anulación parcial de una operación anterior, cumpliendo con el principio de <u>devengo</u> y <u>prudencia</u>.</p>"
     },
     {
+      "intro": "Los envases y embalajes a devolver a proveedores son bienes recibidos de terceros (proveedores) que la empresa tiene la obligación de devolver. No son propiedad de la empresa, por lo que no se registran como existencias, sino como un pasivo en la cuenta (406). Por ejemplo, si se reciben envases valorados en 250 €, se registra: 250 € a (406) y 52,50 € a (472), con cargo a (400) Proveedores. Cuando se devuelven, se anula la deuda. Si la empresa compra envases para su uso, se registran como materias auxiliares. Pero si son de propiedad del proveedor y deben devolverse, constituyen una obligación presente y, por tanto, un pasivo corriente. Este tratamiento asegura la imagen fiel del patrimonio.",
       "question": "5. ¿Qué son los 'envases y embalajes a devolver a proveedores'?",
       "options": [
         "Existencias de la empresa",
@@ -59,6 +62,7 @@
       "saber_mas": "<p>Los <u>envases y embalajes a devolver a proveedores</u> son bienes recibidos de terceros (proveedores) que la empresa tiene la obligación de devolver. No son propiedad de la empresa, por lo que no se registran como <u>existencias</u>, sino como un <u>pasivo</u> en la cuenta <u>(406)</u>.</p><p>Por ejemplo, si se reciben envases valorados en 250 €, se registra: <u>250 € a (406)</u> y <u>52,50 € a (472)</u> (IVA), con cargo a <u>(400) Proveedores</u>. Cuando se devuelven, se anula la deuda.</p><p>Si la empresa compra envases para su uso, se registran como <u>materias auxiliares</u>. Pero si son de propiedad del proveedor y deben devolverse, constituyen una <u>obligación presente</u> y, por tanto, un <u>pasivo corriente</u>. Este tratamiento asegura la <u>imagen fiel</u> del patrimonio.</p>"
     },
     {
+      "intro": "El confirming es un servicio bancario mediante el cual una entidad financiera anticipa el pago a los proveedores de una empresa, que actúa como garante de la deuda. La empresa paga una comisión por el servicio. Funciona así: la empresa entrega al banco los documentos de pago pendientes. El banco paga al proveedor y la empresa queda deudora con el banco. La cuenta (400-X) Proveedores en confirming registra esta obligación. Mejora la liquidez de los proveedores y fortalece la relación comercial, aunque incrementa los gastos financieros de la empresa. Es distinto del factoring, ya que el riesgo crediticio sigue siendo de la empresa, no del banco.",
       "question": "6. ¿Qué es el 'confirming' en la gestión de proveedores?",
       "options": [
         "Un tipo de leasing financiero",
@@ -70,6 +74,7 @@
       "saber_mas": "<p>El <u>confirming</u> es un servicio bancario mediante el cual una entidad financiera <u>anticipa el pago a los proveedores</u> de una empresa, que actúa como garante de la deuda. La empresa paga una comisión por el servicio.</p><p>Funciona así: la empresa entrega al banco los documentos de pago pendientes. El banco paga al proveedor y la empresa queda deudora con el banco. La cuenta <u>(400-X) Proveedores en confirming</u> registra esta obligación.</p><p>Por ejemplo, si el importe es 250.000 € y la comisión 150 €, se registra el pago al proveedor y la comisión como <u>gasto bancario</u>. El confirming mejora la <u>imagen de solvencia</u> del proveedor y fortalece la relación comercial, aunque incrementa los gastos financieros de la empresa.</p>"
     },
     {
+      "intro": "El descuento por pronto pago en una venta es una reducción del precio de venta que se concede al cliente por pagar antes del vencimiento. No se registra como un ingreso financiero, sino como una reducción del ingreso en la cuenta (706) Descuentos sobre ventas por pronto pago. Por ejemplo, si el cliente paga 10.000 € por una deuda de 10.402,98 €, el descuento es 402,98 € (IVA incluido). Se registra: 333,06 € a (706), 69,64 € a (477) IVA repercutido, y 10.402,68 € a (430), con cargo a (57x) Tesorería. Este tratamiento refleja que el ingreso real es inferior al nominal, ajustando el resultado a la realidad económica de la operación.",
       "question": "7. ¿Cómo se contabiliza un descuento por pronto pago en una venta?",
       "options": [
         "Como un ingreso financiero",
@@ -81,6 +86,7 @@
       "saber_mas": "<p>El <u>descuento por pronto pago</u> en una venta se contabiliza como una <u>reducción del ingreso</u>, no como un gasto financiero. Se registra con cargo a la cuenta <u>(706) Descuentos sobre ventas por pronto pago</u> y abono a <u>(430) Clientes</u>.</p><p>Por ejemplo, si el cliente paga 10.000 € por una deuda de 10.402,98 €, el descuento es 402,98 € (IVA incluido). Se registra: <u>333,06 € a (706)</u>, <u>69,64 € a (477) IVA repercutido</u>, y <u>10.402,68 € a (430)</u>, con cargo a <u>(57x) Tesorería</u>.</p><p>Este tratamiento refleja que el ingreso real es inferior al nominal. El descuento no es un gasto, sino una <u>rebaja del precio de venta</u>, ajustando el resultado a la <u>realidad económica</u> de la operación.</p>"
     },
     {
+      "intro": "Los efectos comerciales en cartera son letras de cambio o pagarés recibidos de clientes como forma de pago. Se registran en la cuenta (4310) y representan un derecho de cobro formalizado. La empresa puede: 1) esperar al vencimiento, 2) descontarlos en un banco (pasan a 4311), 3) entregarlos a gestión de cobro (4312), o 4) girar un nuevo efecto en caso de impago (cuenta de resaca). En caso de impago, se registra: 20.000 € a (4315) Efectos comerciales impagados y 20.000 € a (4311). Además, se puede reconocer un ingreso financiero por intereses no cobrados. Este sistema permite una gestión más segura del riesgo de crédito.",
       "question": "8. ¿Qué son los 'efectos comerciales en cartera'?",
       "options": [
         "Cheques en poder de la empresa",
@@ -89,9 +95,10 @@
         "Efectivo en cuentas bancarias"
       ],
       "correct": [1],
-      "saber_mas": "<p>Los <u>efectos comerciales en cartera</u> son <u>letras de cambio o pagarés</u> recibidos de clientes como forma de pago. Se registran en la cuenta <u>(4310)</u> y representan un derecho de cobro formalizado.</p><p>La empresa puede: 1) <u>esperar al vencimiento</u>, 2) <u>descontarlos</u> en un banco (pasan a <u>4311</u>), 3) <u>entregarlos a gestión de cobro</u> (<u>4312</u>), o 4) <u>girar un nuevo efecto</u> en caso de impago (cuenta de resaca).</p><p>En caso de impago, se registra: <u>20.000 € a (4315) Efectos comerciales impagados</u> y <u>20.000 € a (4311)</u>. Además, se puede reconocer un <u>ingreso financiero</u> por intereses no cobrados. Este sistema permite una gestión más segura del riesgo de crédito.</p>"
+      "saber_mas": "<p>Los <u>efectos comerciales en cartera</u> son <u>letras de cambio o pagarés</u> recibidos de clientes como forma de pago. Se registran en la cuenta <u>(4310)</u> y representan un <u>derecho de cobro formalizado</u>.</p><p>La empresa puede: 1) <u>esperar al vencimiento</u>, 2) <u>descontarlos</u> en un banco (pasan a <u>4311</u>), 3) <u>entregarlos a gestión de cobro</u> (<u>4312</u>), o 4) <u>girar un nuevo efecto</u> en caso de impago (cuenta de resaca).</p><p>En caso de impago, se registra: <u>20.000 € a (4315) Efectos comerciales impagados</u> y <u>20.000 € a (4311)</u>. Además, se puede reconocer un <u>ingreso financiero</u> por intereses no cobrados. Este sistema permite una gestión más segura del riesgo de crédito.</p>"
     },
     {
+      "intro": "Los clientes de dudoso cobro son saldos de clientes cuya insolvencia es probable y que han sido reclasificados desde (430) Clientes a (436). Este movimiento no elimina la deuda, sino que la separa para aplicar una corrección valorativa. Simultáneamente, se realiza una pérdida por deterioro con cargo a (694) y abono a (490) Deterioro de valor de créditos. Por ejemplo, si un cliente debe 10.000 € y se considera dudoso, se pasa a (436) y se dotan 10.000 € de deterioro. Este procedimiento es parte del sistema individualizado de estimación del riesgo de fallidos. Si el cliente paga más tarde, se revierte la pérdida. Si no paga, se da de baja como pérdida definitiva.",
       "question": "9. ¿Qué se registra en la cuenta (436) 'Clientes de dudoso cobro'?",
       "options": [
         "Todos los clientes de la empresa",
@@ -103,6 +110,7 @@
       "saber_mas": "<p>La cuenta <u>(436) Clientes de dudoso cobro</u> registra saldos de clientes cuya <u>insolvencia es probable</u> y que han sido reclasificados desde <u>(430) Clientes</u>. Este movimiento no elimina la deuda, sino que la separa para aplicar una <u>corrección valorativa</u>.</p><p>Simultáneamente, se realiza una <u>pérdida por deterioro</u> con cargo a <u>(694)</u> y abono a <u>(490) Deterioro de valor de créditos</u>. Por ejemplo, si un cliente debe 10.000 € y se considera dudoso, se pasa a (436) y se dotan 10.000 € de deterioro.</p><p>Este procedimiento es parte del sistema <u>individualizado</u> de estimación del riesgo de fallidos. Si el cliente paga más tarde, se revierte la pérdida. Si no paga, se da de baja como <u>pérdida definitiva</u>.</p>"
     },
     {
+      "intro": "La estimación del deterioro de créditos puede ser global o individualizada. La estimación global se aplica mediante un porcentaje estimado sobre el total de saldos, sin identificar clientes específicos. Se usa cuando el riesgo es homogéneo. El ajuste se registra con cargo a (694) y abono a (490). La estimación individualizada se aplica a clientes con riesgo específico de insolvencia. Se requiere reclasificar el saldo a (436) Clientes de dudoso cobro y dotar una corrección valorativa. Ambas cumplen con el principio de prudencia. La global es más sencilla, la individualizada más precisa. La elección depende de la naturaleza y magnitud del riesgo.",
       "question": "10. ¿Qué diferencia hay entre estimación global e individualizada del deterioro de créditos?",
       "options": [
         "La global se aplica a todos los clientes, la individualizada a casos específicos",
@@ -111,62 +119,7 @@
         "Ambas son equivalentes"
       ],
       "correct": [0],
-      "saber_mas": "<p>La <u>estimación global</u> del deterioro de créditos se aplica mediante un porcentaje estimado sobre el total de saldos, sin identificar clientes específicos. Se usa cuando el riesgo es homogéneo. El ajuste se registra con cargo a <u>(694)</u> y abono a <u>(490)</u>.</p><p>La <u>estimación individualizada</u> se aplica a clientes con riesgo específico de insolvencia. Se requiere reclasificar el saldo a <u>(436) Clientes de dudoso cobro</u> y dotar una <u>corrección valorativa</u>.</p><p>Por ejemplo, si el deterioro global del ejercicio es 110.000 € y el anterior era 100.000 €, se registra una nueva dotación de 10.000 €. La individualizada es más precisa, pero más compleja. Ambas cumplen con el principio de <u>prudencia</u>.</p>"
-    },
-    {
-      "question": "11. ¿Qué ocurre si se cobra un crédito previamente considerado incobrable?",
-      "options": [
-        "Se registra como ingreso extraordinario",
-        "Se reduce el deterioro previamente contabilizado",
-        "Se anula la pérdida y se registra el cobro",
-        "No se contabiliza"
-      ],
-      "correct": [0],
-      "saber_mas": "<p>Si se cobra un crédito previamente dado por <u>definitivamente perdido</u>, el importe se registra directamente como <u>ingreso excepcional</u> en la cuenta <u>(778)</u>, con cargo a la cuenta de tesorería.</p><p>Según el PGC, <u>no se revierte el deterioro</u> ni se reactiva la cuenta de clientes. Esto evita manipulaciones y refuerza el principio de <u>prudencia</u>. Por ejemplo, si se cobra 5.000 € de una deuda ya dada de baja, se registra: <u>5.000 € a (778)</u> y <u>5.000 € a (572)</u>.</p><p>Este tratamiento asegura que las pérdidas se reconocen cuando son probables, pero los beneficios solo cuando se materializan, evitando una imagen optimista de los resultados.</p>"
-    },
-    {
-      "question": "12. ¿Qué es el 'factoring'?",
-      "options": [
-        "Un tipo de arrendamiento financiero",
-        "La venta de créditos a una empresa especializada",
-        "Un seguro de cambio",
-        "Un préstamo bancario"
-      ],
-      "correct": [1],
-      "saber_mas": "<p>El <u>factoring</u> es un contrato mediante el cual una empresa vende sus <u>créditos comerciales</u> a una entidad especializada (factor) a cambio de liquidez inmediata. El factor asume el riesgo de cobro.</p><p>La empresa recibe el importe del crédito menos una comisión y posibles intereses. El factor se encarga de la gestión y cobro de las deudas.</p><p>Contablemente, se da de baja el crédito en <u>(430) Clientes</u> y se reconoce el efectivo recibido en <u>(57x)</u>. La diferencia entre el valor del crédito y el efectivo recibido se registra como <u>gasto financiero</u> o <u>comisión</u>. El factoring mejora la <u>liquidez</u> y reduce el riesgo de impago, pero a un costo.</p>"
-    },
-    {
-      "question": "13. ¿Cómo se valoran las existencias según el PGC?",
-      "options": [
-        "Siempre al valor de mercado",
-        "Al coste o al valor neto realizable, el menor de ambos",
-        "Al precio de venta",
-        "Al valor razonable sin ajustes"
-      ],
-      "correct": [1],
-      "saber_mas": "<p>Las existencias se valoran al <u>coste de adquisición o producción</u>, ajustado por el <u>valor neto realizable</u> si este es inferior. Este criterio es una aplicación del principio de <u>prudencia</u>.</p><p>El <u>coste</u> incluye el precio de compra, impuestos, transportes y otros gastos directamente atribuibles. El <u>valor neto realizable</u> es el precio de venta estimado menos los costes de finalización y venta.</p><p>Por ejemplo, si unas mercaderías cuestan 10.000 € pero su valor de venta esperado es 9.000 €, deben valorarse a 9.000 €, dotando una <u>corrección valorativa</u> de 1.000 €. Este ajuste asegura la <u>imagen fiel</u> del patrimonio.</p>"
-    },
-    {
-      "question": "14. ¿Qué es la 'cuenta de resaca'?",
-      "options": [
-        "Una cuenta de resultados negativos",
-        "Un nuevo efecto girado para sustituir a uno impagado",
-        "Una cuenta de tesorería",
-        "Un tipo de descuento"
-      ],
-      "correct": [1],
-      "saber_mas": "<p>La <u>cuenta de resaca</u> es un mecanismo mediante el cual una empresa <u>gira un nuevo efecto comercial</u> que sustituye a uno previamente impagado. Este nuevo efecto suele incluir intereses y gastos por el impago.</p><p>Por ejemplo, si un cliente no paga un efecto de 20.000 €, la empresa puede girar un nuevo efecto por 21.000 € (incluyendo 1.000 € de intereses y gastos). Este nuevo efecto se registra como un <u>ingreso financiero</u> en <u>(769)</u>.</p><p>La cuenta de resaca permite reestructurar la deuda y mantener la relación comercial, aunque aumenta el riesgo financiero. Es una práctica común en la gestión de impagados, pero debe contabilizarse con rigor para no ocultar riesgos.</p>"
-    },
-    {
-      "question": "15. ¿Qué incluye el precio de adquisición de las existencias?",
-      "options": [
-        "Precio de compra, impuestos no recuperables, transportes y seguros",
-        "Solo el precio de etiqueta",
-        "El precio de venta más IVA",
-        "El coste de producción dividido por unidades"
-      ],
-      "correct": [0],
-      "saber_mas": "<p>El <u>precio de adquisición</u> de las existencias incluye el <u>precio de compra</u>, los <u>impuestos no recuperables</u>, los <u>transportes</u>, los <u>seguros</u> y cualquier otro gasto directamente atribuible a la adquisición y puesta en condiciones de uso.</p><p>Por ejemplo, si una empresa compra mercaderías por 10.000 €, paga 500 € de transporte y 200 € de aranceles aduaneros, el coste total es 10.700 €. El IVA soportado se registra aparte si es deducible.</p><p>Este criterio asegura que todas las partidas necesarias para que el activo esté listo para su uso se incluyan en su valor contable, cumpliendo con el principio de <u>devengo</u> y <u>prudencia</u>. No se incluyen intereses financieros, salvo en casos específicos.</p>"
+      "saber_mas": "<p>La <u>estimación global</u> del deterioro de créditos se aplica mediante un porcentaje estimado sobre el total de saldos, sin identificar clientes específicos. Se usa cuando el riesgo es homogéneo. El ajuste se registra con cargo a <u>(694)</u> y abono a <u>(490)</u>.</p><p>La <u>estimación individualizada</u> se aplica a clientes con riesgo específico. Se requiere reclasificar el saldo a <u>(436) Clientes de dudoso cobro</u> y dotar una <u>corrección valorativa</u>.</p><p>Por ejemplo, si el deterioro global del ejercicio es 110.000 € y el anterior era 100.000 €, se registra una nueva dotación de 10.000 €. La individualizada es más precisa, pero más compleja. Ambas cumplen con el principio de <u>prudencia</u>.</p>"
     }
   ]
 }
