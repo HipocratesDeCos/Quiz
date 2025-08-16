@@ -24,3 +24,7 @@ Una herramienta web para crear quizzes educativos basados en archivos JSON. Idea
     }
   ]
 }
+{
+  "id": "nombre-del-tema",
+  "title": "Título del Tema"
+}
