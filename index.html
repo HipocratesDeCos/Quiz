@@ -3,121 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperQuiz</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f5f7fa;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            margin: 0;
-            color: #4facfe;
-            font-size: 2.5rem;
-        }
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        .quiz-menu {
-            text-align: center;
-        }
-        .quiz-menu h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .quiz-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .btn {
-            max-width: 600px;
-            width: 100%;
-            margin: 15px auto;
-            display: block;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border: none;
-            border-radius: 15px;
-            padding: 18px 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
-        }
-        .btn-home {
-            background: #6c757d;
-            margin-top: 30px;
-        }
-        .btn-home:hover {
-            background: #5a6268;
-        }
-    </style>
+    <title>SuperQuiz - Contabilidad Financiera</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+        <!-- Header principal -->
         <div class="header">
             <h1>SuperQuiz</h1>
-            <p>Plan General de Contabilidad y Análisis Financiero</p>
+            <p>Contabilidad Financiera</p>
         </div>
 
-        <!-- Menú Principal -->
-        <div class="quiz-menu">
-            <h2>Selecciona un Tema</h2>
-            <div class="quiz-list" id="quiz-list">
-                <!-- Los botones se cargarán aquí automáticamente -->
+        <!-- Página principal (menú de inicio) -->
+        <div id="main-page" class="page active">
+            <div class="main-menu">
+                <h2>Bienvenido a SuperQuiz</h2>
+                <div class="instructions">
+                    <p>🎯 Selecciona "Comenzar Quiz" para acceder a todos los temas disponibles de Contabilidad Financiera.</p>
+                </div>
+                <div class="main-buttons">
+                    <button class="btn" onclick="showPage('menu-page')">🚀 Comenzar Quiz</button>
+                    <button class="btn" id="home-btn">🏠 Inicio</button>
+                </div>
             </div>
-            <button class="btn btn-home" onclick="window.location.reload()">← Volver al Inicio</button>
+        </div>
+
+        <!-- Página del menú de quizzes -->
+        <div id="menu-page" class="page">
+            <div class="quiz-menu">
+                <h2>Selecciona un Tema</h2>
+                <div class="quiz-list">
+                    <!-- Los botones se cargarán automáticamente desde quizzes.json -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Página del quiz activo -->
+        <div id="quiz-container" class="page">
+            <div class="quiz-container">
+                <h2 id="quiz-title">Título del Quiz</h2>
+                <div class="instructions">
+                    <p>📖 Lee cada pregunta cuidadosamente y selecciona la(s) respuesta(s) correcta(s). Puedes marcar varias opciones si es necesario.</p>
+                </div>
+                <div id="questions-container">
+                    <!-- Las preguntas se cargarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de retroalimentación -->
+        <div id="feedback-container" class="results" style="display: none;">
+            <h3 id="feedback-title">Resultados</h3>
+            <div class="score" id="feedback-score">0/0 (0%)</div>
+            <div class="message" id="feedback-message">Mensaje de retroalimentación</div>
+            <button class="btn" onclick="restartQuiz()">🔄 Reintentar Quiz</button>
+        </div>
+
+        <!-- Botón para volver al menú (visible solo en quiz) -->
+        <button id="back-button" class="btn" style="display: none; margin: 20px auto;">
+            ← Volver al Menú
+        </button>
+    </div>
+
+    <!-- Modal "Saber más" -->
+    <div id="saberMasModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-title">💡 Información Adicional</div>
+            <div id="saberMasContent">
+                <!-- Contenido dinámico -->
+            </div>
         </div>
     </div>
 
+    <!-- Variables globales para JavaScript -->
     <script>
-        // Cargar el menú desde quizzes.json
-        async function loadQuizMenu() {
-            try {
-                const response = await fetch('quizzes.json');
-                const quizzes = await response.json();
-                const quizList = document.getElementById('quiz-list');
-
-                quizzes.forEach(quiz => {
-                    const button = document.createElement('button');
-                    button.className = 'btn';
-                    button.setAttribute('data-quiz', quiz.id);
-                    button.textContent = quiz.title;
-                    button.onclick = () => {
-                        window.location.href = `quizzes/${quiz.id}.json`;
-                    };
-                    quizList.appendChild(button);
-                });
-            } catch (error) {
-                quizList.innerHTML = `<p style="color: red;">Error: No se pudo cargar el menú. Verifica que quizzes.json exista.</p>`;
-                console.error('Error al cargar quizzes.json:', error);
-            }
-        }
-
-        // Iniciar al cargar la página
-        document.addEventListener('DOMContentLoaded', loadQuizMenu);
+        let correctCount = 0;
+        let totalQuestions = 0;
+        let answeredAll = false;
+        let quizData = null;
     </script>
+
+    <!-- Archivo JavaScript principal -->
+    <script src="main.js"></script>
 </body>
 </html>
