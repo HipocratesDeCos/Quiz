@@ -1,23 +1,9 @@
-/**
- * SuperQuiz - Sistema Modular de Autoevaluación
- * main.js - Lógica principal del sistema
- * Autor: Asistente de Desarrollo Web
- */
-
-// Variables globales
-let quizData = null;
-let currentQuizId = '';
-let correctCount = 0;
-let totalQuestions = 0;
-let answeredAll = false;
-
-// --- 1. Cargar el menú de quizzes desde quizzes.json ---
+// --- 1. Cargar el menú de quizzes ---
 async function loadQuizMenu() {
     try {
         const response = await fetch('quizzes.json');
-        if (!response.ok) throw new Error('No se pudo cargar quizzes.json');
         const quizzes = await response.json();
-        const quizList = document.querySelector('.quiz-list');
+        const quizList = document.getElementById('quiz-list');
 
         quizList.innerHTML = ''; // Limpiar botones anteriores
 
@@ -31,11 +17,7 @@ async function loadQuizMenu() {
         });
     } catch (error) {
         console.error('Error al cargar el menú de quizzes:', error);
-        document.querySelector('.quiz-list').innerHTML = `
-            <p style="color: #d32f2f; text-align: center; padding: 20px;">
-                ⚠️ Error al cargar los quizzes. Verifica que <strong>quizzes.json</strong> exista y tenga el formato correcto.
-            </p>
-        `;
+        document.querySelector('.quiz-list').innerHTML = `<p style="color: red;">Error: No se pudo cargar el menú. Verifica que quizzes.json exista.</p>`;
     }
 }
 
@@ -44,8 +26,7 @@ async function loadQuiz(quizId) {
     try {
         const response = await fetch(`quizzes/${quizId}.json`);
         if (!response.ok) throw new Error(`Quiz no encontrado: ${quizId}.json`);
-        quizData = await response.json();
-        currentQuizId = quizId;
+        const quizData = await response.json();
         const container = document.getElementById('quiz-container');
         const backButton = document.getElementById('back-button');
         const feedbackContainer = document.getElementById('feedback-container');
@@ -54,11 +35,6 @@ async function loadQuiz(quizId) {
         container.style.display = 'block';
         backButton.style.display = 'block';
         document.getElementById('menu-page').style.display = 'none';
-
-        // Resetear estado
-        correctCount = 0;
-        answeredAll = false;
-        feedbackContainer.style.display = 'none';
 
         // Título del quiz
         document.getElementById('quiz-title').textContent = quizData.title;
@@ -94,7 +70,7 @@ async function loadQuiz(quizId) {
     }
 }
 
-// --- 3. Verificar respuesta y calcular puntuación ---
+// --- 3. Verificar respuesta ---
 function checkAnswer(qIndex) {
     const question = document.querySelectorAll('.question')[qIndex];
     const options = question.querySelectorAll('.option');
@@ -228,7 +204,6 @@ function closeModal() {
     document.getElementById('saberMasModal').style.display = 'none';
 }
 
-// Cerrar al hacer clic fuera
 window.onclick = function(event) {
     const modal = document.getElementById('saberMasModal');
     if (event.target === modal) {
@@ -263,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Función para cambiar de página (opcional)
 function showPage(pageId) {
     document.getElementById('main-page').style.display = pageId === 'main-page' ? 'block' : 'none';
     document.getElementById('menu-page').style.display = pageId === 'menu-page' ? 'block' : 'none';
