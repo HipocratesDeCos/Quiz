@@ -7,89 +7,65 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Página principal -->
-    <div class="container page active" id="main-page">
+    <!-- Página Principal -->
+    <div id="main-page" class="page active">
         <div class="header">
             <h1>SuperQuiz</h1>
-            <p>Plataforma de aprendizaje interactivo</p>
+            <h2>Contabilidad Financiera</h2>
         </div>
-        <div class="main-menu">
-            <h2>Selecciona un área</h2>
-            <div class="main-buttons">
-                <button class="btn" onclick="showPage('menu-page')">CONTABILIDAD</button>
-                <button class="btn btn-disabled">MARKETING</button>
-                <button class="btn btn-disabled">NUTRICIÓN</button>
-                <button class="btn btn-disabled">BOTÁNICA</button>
-            </div>
-        </div>
+        <p class="intro-text">
+            Bienvenido al sistema interactivo de autoevaluación en contabilidad.  
+            Selecciona un tema para comenzar a practicar.
+        </p>
+        <button class="btn btn-start" onclick="showPage('menu-page')">
+            Iniciar
+        </button>
     </div>
 
-    <!-- Menú de contabilidad -->
-    <div class="page" id="menu-page">
-        <div class="header">
-            <h1>Contabilidad financiera</h1>
-            <p>Plan General de Contabilidad y Normativa</p>
-        </div>
-        <div class="quiz-menu">
+    <!-- Menú de Contabilidad -->
+    <div id="menu-page" class="page">
+        <div class="quiz-header">
             <h2>Selecciona un tema</h2>
-            <div class="quiz-list">
-                <button class="btn" data-quiz="contabilidad-basica">Introducción al PGC y Marco Conceptual</button>
-                <button class="btn" data-quiz="inversion-no-corriente">Inversión No Corriente - Activo Fijo</button>
-                <button class="btn" data-quiz="inversion-corriente">Inversión Corriente - Activo Circulante</button>
-                <button class="btn" data-quiz="patrimonio-neto">Patrimonio Neto - Capital y Reservas</button>
-                <button class="btn" data-quiz="pasivo-corriente-no-corriente">Pasivo Corriente y No Corriente</button>
-                <button class="btn" data-quiz="impuesto-sociedades">Impuesto de Sociedades</button>
-                <button class="btn" data-quiz="cuentas-anuales">Cuentas Anuales</button>
-                <button class="btn" data-quiz="introduccion-estados-financieros">Introducción Estados Financieros</button>
-                <button class="btn" data-quiz="analisis-balance-i">Análisis Balances de Situación I</button>
-                <button class="btn" data-quiz="analisis-balance-ii">Análisis Balances de Situación II</button>
-                <button class="btn" data-quiz="analisis-cuenta-resultados">Análsis Cuenta de Resultados</button>
-                <button class="btn" data-quiz="rentabilidad-autofinanciacion-crecimiento">Rentabilidad, Autofinanciación y Crecimiento</button>
-                <button class="btn" data-quiz="analisis-fondo-maniobra">Análisis del Fonde de Maniobra</button>
-                <button class="btn" data-quiz="analisis-datos-sectoriales">Analisis con Datos Sectoriales</button>
-                <button class="btn" data-quiz="analisis-integral-datos-finacieros">Análisis Integral de Datos Financieros</button>
-                <!-- Retroalimentación final -->
-<div id="feedback-container" style="display: none; padding: 20px; background: #f0f8ff; border-radius: 15px; margin: 20px 0;">
-    <h3 id="feedback-title"></h3>
-    <p id="feedback-message"></p>
-    <p id="feedback-score"></p>
-    <button class="btn" onclick="restartQuiz()">Volver a hacer el quiz</button>
-</div>
-            </div>
-            <button class="btn btn-home" onclick="showPage('main-page')">← Volver</button>
+            <button class="btn btn-home" onclick="showPage('main-page')">
+                ← Volver
+            </button>
+        </div>
+        <div class="quiz-list" id="quiz-list">
+            <!-- Los botones se cargarán automáticamente -->
         </div>
     </div>
 
-    <!-- Página del quiz -->
-    <div class="page" id="quiz-page">
-        <div class="quiz-container">
-            <div class="quiz-header">
-                <h2 class="quiz-title" id="quiz-title">Título del Quiz</h2>
-                <button class="btn btn-home" onclick="showPage('menu-page')">🏠 Inicio</button>
-            </div>
-            <div class="instructions">
-                <p>💡 Selecciona una o varias respuestas. Algunas preguntas tienen más de una correcta.</p>
-            </div>
-            <div id="quiz-content"></div>
-            <div class="results" id="final-results" style="display: none;">
-                <h3>¡Quiz Completado!</h3>
-                <div class="score" id="final-score">0%</div>
-                <div class="message" id="final-message">¡Buen trabajo!</div>
-                <button class="btn" onclick="showPage('menu-page')">Volver al menú</button>
-            </div>
+    <!-- Contenedor del Quiz -->
+    <div id="quiz-container" class="page">
+        <div class="quiz-header">
+            <h2 id="quiz-title">Cargando...</h2>
+            <button class="btn btn-home" id="back-button">
+                ← Volver al menú
+            </button>
+        </div>
+
+        <div id="questions-container">
+            <!-- Las preguntas se cargarán dinámicamente -->
+        </div>
+
+        <!-- Retroalimentación final -->
+        <div id="feedback-container" style="display: none; padding: 20px; background: #f0f8ff; border-radius: 15px; margin: 20px 0;">
+            <h3 id="feedback-title"></h3>
+            <p id="feedback-message"></p>
+            <p id="feedback-score"></p>
+            <button class="btn" onclick="restartQuiz()">Volver a hacer el quiz</button>
         </div>
     </div>
 
-    <!-- Modal Saber más -->
-    <div class="modal" id="saberMasModal">
+    <!-- Modal "Saber más" -->
+    <div id="saberMasModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="modal-title">Saber más</div>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <div id="saberMasContent"></div>
         </div>
     </div>
 
-    <!-- Script principal -->
-    <script src="main.js" defer></script>
+    <!-- Scripts -->
+    <script src="main.js"></script>
 </body>
 </html>
