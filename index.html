@@ -4,26 +4,87 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SuperQuiz</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: linear-gradient(135deg, #4a90e2, #8e44ad); color: #333; text-align: center; }
+    .container { max-width: 900px; margin: 50px auto; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    h1 { color: #4a90e2; margin: 0 0 18px; }
+    h2 { color: #444; margin-top: 8px; }
+    .btn { display: block; width: 85%; margin: 12px auto; padding: 14px; font-size: 18px; color: #fff; background: linear-gradient(90deg, #4a90e2, #8e44ad); border: none; border-radius: 10px; cursor: pointer; transition: transform .15s, box-shadow .15s; box-shadow: 0 6px 12px rgba(78, 4, 114, .18); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(78, 4, 114, .25); }
+    .question { margin: 22px 0 10px; font-weight: 700; text-align: left; }
+    .options label { display: block; margin: 8px 0; padding: 10px; border: 1px solid #e4e4e4; border-radius: 8px; cursor: pointer; text-align: left; }
+    .correct { background-color: #c8f7c5; }
+    .incorrect { background-color: #f7c5c5; }
+    .saber-mas { display: inline-block; margin: 10px 0 16px; color: #4a90e2; cursor: pointer; text-decoration: underline; }
+    .extra { display: none; margin-top: 8px; padding: 12px; background: #f7f7f9; border-radius: 8px; text-align: left; border: 1px dashed #cfd3d8; }
+    .score { margin-top: 20px; font-size: 18px; font-weight: 700; }
+    .notice { background: #fff7e6; border: 1px solid #ffd591; padding: 14px; border-radius: 10px; color: #8a5a00; margin: 16px 0; text-align: left; }
+    .muted { color: #666; font-size: 14px; }
+  </style>
 </head>
 <body>
   <div class="container" id="app">
     <h1>SuperQuiz</h1>
     <div id="menu-principal">
       <button class="btn" onclick="cargarMateria('Contabilidad Financiera')">📘 Contabilidad Financiera</button>
-      <button class="btn" onclick="cargarMateria('Análisis Económico-Financiero')">📊 Análisis Económico-Financiero</button>
-      <button class="btn" onclick="cargarMateria('Economía')">💹 Economía</button>
-      <button class="btn" onclick="cargarMateria('Marketing')">📢 Marketing</button>
+      <button class="btn" onclick="mensajeProximamente('Análisis Económico-Financiero')">📊 Análisis Económico-Financiero</button>
+      <button class="btn" onclick="mensajeProximamente('Economía')">💹 Economía</button>
+      <button class="btn" onclick="mensajeProximamente('Marketing')">📢 Marketing</button>
     </div>
     <div id="contenido"></div>
   </div>
 
   <script>
-    let datos;
-    let aciertos = 0;
-    let fallos = 0;
+    // --- Estado global simple
+    let datos; // JSON cargado del quiz activo
+    let aciertos = 0; let fallos = 0;
+    let estado = { materia: null, quiz: null };
 
-    async function cargarMateria(nombreMateria) {
+    // --- Utilidad: slug para mapear nombres -> nombres de archivo
+    function slugify(str){
+      return str
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // quita acentos
+        .toLowerCase()
+        .replace(/&/g,'-y-')
+        .replace(/[^a-z0-9]+/g,'-')
+        .replace(/(^-|-$)/g,'');
+    }
+
+    // --- Carga segura de JSON con mensajes de error en pantalla
+    async function fetchJSON(ruta){
+      try {
+        const res = await fetch(ruta);
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch(err){
+        mostrarErrorCarga(ruta, err);
+        console.error('Error cargando', ruta, err);
+        return null;
+      }
+    }
+
+    function mostrarErrorCarga(ruta, err){
+      const cont = document.getElementById('contenido');
+      cont.innerHTML = `
+        <h2>⚠️ No se pudo cargar el archivo</h2>
+        <div class="notice">
+          <b>Ruta solicitada:</b> <code>${ruta}</code><br/>
+          <b>Detalle:</b> ${err?.message || err}
+          <ul>
+            <li>Comprueba que la carpeta se llame <b>json</b> (minúsculas) y que el archivo exista.</li>
+            <li>Los nombres de archivo deben ir en <b>kebab-case</b> sin acentos (ej.: <code>contabilidad-basica.json</code>).</li>
+            <li>Si lo abres en local, usa un servidor (por ejemplo: <code>python -m http.server 5500</code>) en vez de abrir el <i>index.html</i> directamente.</li>
+            <li>En GitHub Pages los nombres son sensibles a mayúsculas/minúsculas.</li>
+          </ul>
+        </div>
+        <button class='btn' onclick="cargarMateria('Contabilidad Financiera')">🔙 Volver a los quizzes de Contabilidad</button>
+        <button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>
+      `;
+    }
+
+    // --- Menú intermedio para Contabilidad Financiera
+    function cargarMateria(nombreMateria){
+      estado.materia = nombreMateria;
       document.getElementById('menu-principal').style.display = 'none';
       const cont = document.getElementById('contenido');
 
@@ -39,37 +100,41 @@
           'Cuentas anuales'
         ];
         quizzes.forEach(q => {
-          cont.innerHTML += `<button class='btn' onclick="cargarQuiz('${q}', '${nombreMateria}')">${q}</button>`;
+          cont.innerHTML += `<button class='btn' onclick="cargarQuiz('${q}')">${q}</button>`;
         });
         cont.innerHTML += `<button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>`;
       } else {
-        const response = await fetch(`json/${nombreMateria}.json`);
-        datos = await response.json();
-        mostrarTemas(datos.temas, nombreMateria);
+        cont.innerHTML = `<div class='notice'>La materia <b>${nombreMateria}</b> estará disponible próximamente.</div>`;
+        cont.innerHTML += `<button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>`;
       }
     }
 
-    async function cargarQuiz(nombreQuiz, materia) {
-      const response = await fetch(`json/${nombreQuiz}.json`);
-      datos = await response.json();
-      mostrarTemas(datos.temas, `${materia} - ${nombreQuiz}`);
+    // --- Carga de un quiz concreto (archivo JSON segun el nombre)
+    async function cargarQuiz(nombreQuiz){
+      estado.quiz = nombreQuiz;
+      const filename = slugify(nombreQuiz) + '.json';
+      const path = 'json/' + filename;
+      const data = await fetchJSON(path);
+      if(!data) return; // ya se mostró el error
+      datos = data;
+      mostrarTemas(datos.temas, `${estado.materia} · ${nombreQuiz}`);
     }
 
-    function mostrarTemas(temas, materia) {
+    function mostrarTemas(temas, titulo){
       const cont = document.getElementById('contenido');
-      cont.innerHTML = `<h2>${materia}</h2>`;
+      cont.innerHTML = `<h2>${titulo}</h2>`;
       temas.forEach((tema, index) => {
         cont.innerHTML += `<button class='btn' onclick="mostrarQuiz(${index})">${tema.nombre}</button>`;
       });
+      cont.innerHTML += `<button class='btn' onclick="cargarMateria('Contabilidad Financiera')">🔙 Volver a quizzes de Contabilidad</button>`;
       cont.innerHTML += `<button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>`;
     }
 
-    function mostrarQuiz(indexTema) {
+    function mostrarQuiz(indexTema){
       const tema = datos.temas[indexTema];
       const cont = document.getElementById('contenido');
-      aciertos = 0;
-      fallos = 0;
-      let html = `<h2>${tema.nombre}</h2><p>${tema.introduccion}</p>`;
+      aciertos = 0; fallos = 0;
+      let html = `<h2>${tema.nombre}</h2><p class='muted'>${tema.introduccion || ''}</p>`;
       tema.preguntas.forEach((pregunta, i) => {
         html += `<div class='question'>${pregunta.texto}</div>`;
         html += `<div class='options'>`;
@@ -79,39 +144,44 @@
         html += `</div>`;
         html += `<button class='btn' onclick='validar(${i}, ${JSON.stringify(pregunta.correctas)})'>Validar</button>`;
         html += `<span class='saber-mas' onclick="toggleExtra('extra${i}')">Saber más</span>`;
-        html += `<div class='extra' id='extra${i}'>${pregunta.explicacion}</div>`;
+        html += `<div class='extra' id='extra${i}'>${pregunta.explicacion || ''}</div>`;
       });
       html += `<div class='score' id='resultado'></div>`;
-      html += `<button class='btn' onclick="mostrarTemas(datos.temas, '${datos.nombre}')">🔙 Volver a temas</button>`;
-      html += `<button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>`;
+      html += `<button class='btn' onclick="mostrarTemas(datos.temas, '${estado.materia} · ${estado.quiz}')">🔙 Volver a temas</button>`;
+      html += `<button class='btn' onclick="cargarMateria('Contabilidad Financiera')">📚 Ver otros quizzes de Contabilidad</button>`;
+      html += `<button class='btn' onclick="volverMenu()">🏠 Menú principal</button>`;
       cont.innerHTML = html;
     }
 
-    function validar(numPregunta, correctas) {
+    function validar(numPregunta, correctas){
       const opciones = document.getElementsByName(`p${numPregunta}`);
       let seleccionadas = [];
-      opciones.forEach((op, i) => {
-        if (op.checked) seleccionadas.push(i);
-      });
-      let esCorrecta = JSON.stringify(seleccionadas.sort()) === JSON.stringify(correctas.sort());
+      opciones.forEach((op, i) => { if (op.checked) seleccionadas.push(i); });
+      const esCorrecta = JSON.stringify(seleccionadas.sort()) === JSON.stringify([...(correctas||[])].sort());
       if (esCorrecta) {
-        aciertos++;
-        opciones.forEach(op => op.parentElement.classList.add('correct'));
+        aciertos++; opciones.forEach(op => op.parentElement.classList.add('correct'));
       } else {
-        fallos++;
-        opciones.forEach(op => op.parentElement.classList.add('incorrect'));
+        fallos++; opciones.forEach(op => op.parentElement.classList.add('incorrect'));
       }
       document.getElementById('resultado').innerHTML = `✅ Aciertos: ${aciertos} | ❌ Fallos: ${fallos}`;
     }
 
-    function toggleExtra(id) {
+    function toggleExtra(id){
       const el = document.getElementById(id);
       el.style.display = (el.style.display === 'block') ? 'none' : 'block';
     }
 
-    function volverMenu() {
+    function volverMenu(){
       document.getElementById('contenido').innerHTML = '';
       document.getElementById('menu-principal').style.display = 'block';
+      estado = { materia: null, quiz: null };
+    }
+
+    function mensajeProximamente(nombre){
+      document.getElementById('menu-principal').style.display = 'none';
+      const cont = document.getElementById('contenido');
+      cont.innerHTML = `<h2>${nombre}</h2><div class='notice'>Esta materia se activará en breve. Mientras tanto, puedes explorar <b>Contabilidad Financiera</b>.</div>`;
+      cont.innerHTML += `<button class='btn' onclick="volverMenu()">🏠 Volver al menú principal</button>`;
     }
   </script>
 </body>
