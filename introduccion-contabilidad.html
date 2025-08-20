@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz - Introducción a la Contabilidad</title>
+  <style>
+    /* Reset y base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
+      color: #333;
+      line-height: 1.7;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    header {
+      background: #2a7fff;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    .content {
+      padding: 25px;
+    }
+    .question {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #e0e4eb;
+      border-radius: 10px;
+      background: #f9fbfd;
+    }
+    .question h3 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+      font-size: 1.15rem;
+    }
+    .options label {
+      display: block;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .options label:hover {
+      background: #eef6ff;
+      border-color: #2a7fff;
+      transform: translateY(-1px);
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    .feedback {
+      margin: 12px 0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 500;
+      display: none;
+    }
+    .correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    button {
+      background: #2a7fff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #1b6dff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(42, 127, 255, 0.3);
+    }
+    .more-info {
+      display: block;
+      margin-top: 15px;
+      color: #2a7fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-align: center;
+      padding: 10px;
+      background: #eef6ff;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .more-info:hover {
+      background: #dbeaff;
+      color: #1a5edb;
+    }
+    .navigation {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .nav-btn {
+      background: #6c757d;
+    }
+    .nav-btn:hover {
+      background: #5a6268;
+    }
+    @media (max-width: 600px) {
+      .container {
+        border-radius: 10px;
+        margin: 10px;
+      }
+      header {
+        padding: 20px;
+      }
+      header h1 {
+        font-size: 1.4rem;
+      }
+      .content {
+        padding: 20px;
+      }
+      .question {
+        padding: 18px;
+      }
+      .options label {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📘 Introducción a la Contabilidad</h1>
+      <p>Basado en el Plan General de Contabilidad (RD 1/2021)</p>
+    </header>
+
+    <div class="content">
+      <!-- Pregunta 1 -->
+      <div class="question">
+        <h3>1. ¿Cuál es el objetivo principal del Plan General de Contabilidad (PGC)?</h3>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> a) Facilitar la creación de empresas</label>
+          <label><input type="radio" name="q1" value="b"> b) Establecer normas para expresar la imagen fiel de la situación financiera de la empresa</label>
+          <label><input type="radio" name="q1" value="c"> c) Reducir impuestos mediante contabilidad creativa</label>
+          <label><input type="radio" name="q1" value="d"> d) Sustituir la auditoría externa</label>
+        </div>
+        <button onclick="checkAnswer('q1', 'b')">Validar</button>
+        <div id="feedback-q1" class="feedback"></div>
+        <a href="#more1" class="more-info">Saber más</a>
+        <div id="more1" style="margin-top:10px; padding:10px; background:#f0f4f8; border-radius:8px; font-size:0.9rem; display:none;">
+          El PGC tiene como objetivo principal que las cuentas anuales muestren la <strong>imagen fiel</strong> del patrimonio, la situación financiera y los resultados de la empresa, según el marco conceptual.
+        </div>
+        <script>document.querySelector('a[href="#more1"]').addEventListener('click', e => { e.preventDefault(); document.getElementById('more1').style.display = document.getElementById('more1').style.display === 'none' ? 'block' : 'none'; });</script>
+      </div>
+
+      <!-- Pregunta 2 -->
+      <div class="question">
+        <h3>2. ¿Cuál de los siguientes es un principio contable según el PGC?</h3>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> a) Compensación</label>
+          <label><input type="radio" name="q2" value="b"> b) Devengo</label>
+          <label><input type="radio" name="q2" value="c"> c) Rentabilidad inmediata</label>
+          <label><input type="radio" name="q2" value="d"> d) Valoración por inflación</label>
+        </div>
+        <button onclick="checkAnswer('q2', 'b')">Validar</button>
+        <div id="feedback-q2" class="feedback"></div>
+        <a href="#more2" class="more-info">Saber más</a>
+        <div id="more2" style="margin-top:10px; padding:10px; background:#f0f4f8; border-radius:8px; font-size:0.9rem; display:none;">
+          El principio del <strong>devengo</strong> establece que los ingresos y gastos deben imputarse cuando se generan, no cuando se cobran o pagan. Es uno de los seis principios fundamentales del PGC.
+        </div>
+        <script>document.querySelector('a[href="#more2"]').addEventListener('click', e => { e.preventDefault(); document.getElementById('more2').style.display = document.getElementById('more2').style.display === 'none' ? 'block' : 'none'; });</script>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="question">
+        <h3>3. ¿Qué parte del PGC contiene los principios contables y requisitos de la información?</h3>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> a) Normas de registro y valoración</label>
+          <label><input type="radio" name="q3" value="b"> b) Cuadro de cuentas</label>
+          <label><input type="radio" name="q3" value="c"> c) Marco Conceptual de la Contabilidad</label>
+          <label><input type="radio" name="q3" value="d"> d) Definiciones y relaciones contables</label>
+        </div>
+        <button onclick="checkAnswer('q3', 'c')">Validar</button>
+        <div id="feedback-q3" class="feedback"></div>
+        <a href="#more3" class="more-info">Saber más</a>
+        <div id="more3" style="margin-top:10px; padding:10px; background:#f0f4f8; border-radius:8px; font-size:0.9rem; display:none;">
+          El <strong>Marco Conceptual de la Contabilidad</strong> es la primera parte del PGC y recoge los principios, requisitos y criterios que deben seguirse para lograr la imagen fiel.
+        </div>
+        <script>document.querySelector('a[href="#more3"]').addEventListener('click', e => { e.preventDefault(); document.getElementById('more3').style.display = document.getElementById('more3').style.display === 'none' ? 'block' : 'none'; });</script>
+      </div>
+
+      <!-- Pregunta 4 -->
+      <div class="question">
+        <h3>4. Según el principio de empresa en funcionamiento, ¿qué se asume sobre la empresa?</h3>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> a) Que será vendida en los próximos 6 meses</label>
+          <label><input type="radio" name="q4" value="b"> b) Que continuará operando en el futuro previsible</label>
+          <label><input type="radio" name="q4" value="c"> c) Que no realizará inversiones</label>
+          <label><input type="radio" name="q4" value="d"> d) Que distribuirá todos sus beneficios</label>
+        </div>
+        <button onclick="checkAnswer('q4', 'b')">Validar</button>
+        <div id="feedback-q4" class="feedback"></div>
+        <a href="#more4" class="more-info">Saber más</a>
+        <div id="more4" style="margin-top:10px; padding:10px; background:#f0f4f8; border-radius:8px; font-size:0.9rem; display:none;">
+          El principio de <strong>empresa en funcionamiento</strong> asume que la empresa continuará operando en el futuro previsible, sin intención ni necesidad de liquidación.
+        </div>
+        <script>document.querySelector('a[href="#more4"]').addEventListener('click', e => { e.preventDefault(); document.getElementById('more4').style.display = document.getElementById('more4').style.display === 'none' ? 'block' : 'none'; });</script>
+      </div>
+
+      <!-- Pregunta 5 -->
+      <div class="question">
+        <h3>5. ¿Cuál de los siguientes NO es un requisito de la información contable según el marco conceptual?</h3>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> a) Relevancia</label>
+          <label><input type="radio" name="q5" value="b"> b) Fiabilidad</label>
+          <label><input type="radio" name="q5" value="c"> c) Rentabilidad</label>
+          <label><input type="radio" name="q5" value="d"> d) Comparabilidad</label>
+        </div>
+        <button onclick="checkAnswer('q5', 'c')">Validar</button>
+        <div id="feedback-q5" class="feedback"></div>
+        <a href="#more5" class="more-info">Saber más</a>
+        <div id="more5" style="margin-top:10px; padding:10px; background:#f0f4f8; border-radius:8px; font-size:0.9rem; display:none;">
+          Los requisitos principales son: <strong>relevancia, fiabilidad, comparabilidad, integridad y claridad</strong>. La "rentabilidad" no es un requisito de calidad de la información, sino un resultado económico.
+        </div>
+        <script>document.querySelector('a[href="#more5"]').addEventListener('click', e => { e.preventDefault(); document.getElementById('more5').style.display = document.getElementById('more5').style.display === 'none' ? 'block' : 'none'; });</script>
+      </div>
+
+      <!-- Navegación -->
+      <div class="navigation">
+        <a href="contabilidad.html" class="btn nav-btn">⬅️ Volver a Contabilidad</a>
+        <a href="index.html" class="btn nav-btn">🏠 Menú Principal</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+      const feedback = document.getElementById(`feedback-${questionId}`);
+      
+      if (!selected) {
+        feedback.textContent = "⚠️ Por favor, selecciona una respuesta.";
+        feedback.className = "feedback incorrect";
+        feedback.style.display = "block";
+        return;
+      }
+
+      if (selected.value === correctAnswer) {
+        feedback.textContent = "✅ ¡Correcto!";
+        feedback.className = "feedback correct";
+      } else {
+        feedback.textContent = `❌ Incorrecto. La respuesta correcta es: ${correctAnswer.toUpperCase()}.`;
+        feedback.className = "feedback incorrect";
+      }
+      feedback.style.display = "block";
+    }
+  </script>
+</body>
+</html>
