@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inmovilizado Material</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Inmovilizado material</h2>
+    <p class="info">El inmovilizado material comprende los elementos del activo tangibles, con vida útil superior a un año y que se utilizan en la actividad de la empresa.</p>
+
+    <!-- Pregunta 1 -->
+    <div class="quiz-question">
+      <p><strong>¿Cuál es el criterio de valoración inicial del inmovilizado material?</strong></p>
+      <form id="q1">
+        <label><input type="radio" name="q1" value="a"> Precio de adquisición más gastos necesarios</label><br>
+        <label><input type="radio" name="q1" value="b"> Valor de mercado en la fecha de compra</label><br>
+        <label><input type="radio" name="q1" value="c"> Valor nominal del bien</label><br>
+        <label><input type="radio" name="q1" value="d"> Precio de venta esperado</label><br>
+        <button type="button" onclick="validarRespuesta('q1', 'a')">Validar</button>
+      </form>
+      <p id="feedback-q1" class="feedback"></p>
+      <a href="#" onclick="mostrarExplicacion('q1')">Saber más</a>
+    </div>
+
+    <!-- Pregunta 2 -->
+    <div class="quiz-question">
+      <p><strong>¿Qué elementos se incluyen en el inmovilizado material?</strong></p>
+      <form id="q2">
+        <label><input type="checkbox" name="q2" value="a"> Terrenos y construcciones</label><br>
+        <label><input type="checkbox" name="q2" value="b"> Maquinaria y equipos</label><br>
+        <label><input type="checkbox" name="q2" value="c"> Mobiliario y enseres</label><br>
+        <label><input type="checkbox" name="q2" value="d"> Patentes y marcas</label><br>
+        <button type="button" onclick="validarRespuesta('q2', ['a','b','c'])">Validar</button>
+      </form>
+      <p id="feedback-q2" class="feedback"></p>
+      <a href="#" onclick="mostrarExplicacion('q2')">Saber más</a>
+    </div>
+
+    <div class="buttons">
+      <a href="contabilidad.html" class="btn">⬅️ Volver a temas</a>
+      <a href="contabilidad.html" class="btn">📚 Ver otros quizzes de Contabilidad</a>
+      <a href="index.html" class="btn">🏠 Menú principal</a>
+    </div>
+  </div>
+
+  <script>
+    function validarRespuesta(idForm, correcta) {
+      const form = document.getElementById(idForm);
+      const feedback = document.getElementById(`feedback-${idForm}`);
+      let seleccionados = Array.from(form.querySelectorAll('input[type="radio"]:checked') || form.querySelectorAll('input[type="checkbox"]:checked'));
+      let valores = seleccionados.map(el => el.value);
+
+      if (Array.isArray(correcta)) {
+        // Para checkbox
+        if (valores.length === correcta.length && correcta.every(v => valores.includes(v))) {
+          feedback.textContent = "✅ Correcto!";
+          feedback.style.color = "green";
+        } else {
+          feedback.textContent = "❌ Incorrecto. Las opciones correctas son: " + correcta.join(", ");
+          feedback.style.color = "red";
+        }
+      } else {
+        // Para radio
+        if (valores[0] === correcta) {
+          feedback.textContent = "✅ Correcto!";
+          feedback.style.color = "green";
+        } else {
+          feedback.textContent = "❌ Incorrecto. La respuesta correcta es: " + correcta;
+          feedback.style.color = "red";
+        }
+      }
+    }
+
+    function mostrarExplicacion(id) {
+      alert("Explicación detallada aquí (por ejemplo: el inmovilizado material incluye terrenos, maquinaria, mobiliario...)");
+    }
+  </script>
+</body>
+</html>
