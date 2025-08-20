@@ -1,83 +1,93 @@
-body {
-  font-family: Arial, sans-serif;
+* {
+  box-sizing: border-box;
   margin: 0;
-  background: linear-gradient(135deg, #4a90e2, #8e44ad);
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
   color: #333;
-  text-align: center;
+  line-height: 1.6;
 }
 
 .container {
   max-width: 800px;
-  margin: 50px auto;
-  background: #fff;
+  margin: 40px auto;
   padding: 20px;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-h1 {
-  color: #4a90e2;
+h1, h2 {
+  text-align: center;
+  color: #2a7fff;
+  margin-bottom: 30px;
+}
+
+.menu, .submenu, .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .btn {
   display: block;
-  width: 80%;
-  margin: 10px auto;
-  padding: 12px;
-  font-size: 18px;
-  color: #fff;
-  background: linear-gradient(90deg, #4a90e2, #8e44ad);
-  border: none;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(to right, #4285f5, #9c27b0);
+  color: white;
+  text-align: center;
+  text-decoration: none;
   border-radius: 8px;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 .btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.question {
-  margin: 20px 0;
+.btn i {
+  margin-right: 8px;
+}
+
+.info {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.quiz-question {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.feedback {
+  margin: 10px 0;
   font-weight: bold;
 }
 
-.options label {
-  display: block;
-  margin: 8px 0;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
+.buttons {
+  margin-top: 30px;
 }
 
-.correct {
-  background-color: #c8f7c5;
-}
-
-.incorrect {
-  background-color: #f7c5c5;
-}
-
-.saber-mas {
-  display: block;
-  margin-top: 10px;
-  color: #4a90e2;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.extra {
-  display: none;
-  margin-top: 10px;
-  padding: 10px;
-  background: #f0f0f0;
-  border-radius: 6px;
-  text-align: left;
-}
-
-.score {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+  .btn {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
