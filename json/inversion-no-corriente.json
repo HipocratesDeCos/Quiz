@@ -1,48 +1,115 @@
 {
-  "nombre": "Inversión no corriente",
+  "titulo": "Inversiones No Corrientes",
+  "descripcion": "Módulo que abarca el tratamiento contable de los activos no corrientes, con especial énfasis en el inmovilizado material, intangible, inversiones inmobiliarias y financieras a largo plazo. Incluye normativa del Plan General de Contabilidad (PGC), criterios de valoración, amortización, deterioro de valor y operaciones como permutas y arrendamientos financieros.",
+  "autor": "Experto en Contabilidad Financiera",
+  "fecha_creacion": "2025-08-20",
+  "version": "1.0",
   "temas": [
     {
-      "nombre": "Inmovilizado material",
-      "introduccion": "El inmovilizado material comprende los elementos del activo tangibles, con vida útil superior a un año y que se utilizan en la actividad de la empresa.",
+      "nombre": "Inmovilizado Material",
+      "introduccion": "El inmovilizado material comprende los activos tangibles que posee una empresa para su uso en la producción, suministro de servicios o fines administrativos, y que tienen una vida útil superior a un año. Su reconocimiento, valoración y amortización se rigen por la normativa del PGC, especialmente la Norma 2ª. Incluye bienes como maquinaria, vehículos, construcciones y terrenos.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 2ª",
+        "NIC 16 - Propiedades, planta y equipo"
+      ],
       "preguntas": [
         {
-          "texto": "¿Cuál es el criterio de valoración inicial del inmovilizado material?",
-          "opciones": [
-            "Precio de adquisición más gastos necesarios",
-            "Valor de mercado en la fecha de compra",
-            "Valor nominal del bien",
-            "Precio de venta esperado"
-          ],
-          "correctas": [0],
-          "explicacion": "<p>El inmovilizado material se valora inicialmente por su <u>precio de adquisición</u> más todos los <u>gastos necesarios</u> hasta su puesta en funcionamiento, como transporte, instalación, seguros, etc.</p>"
+          "pregunta": "¿Cómo se valora inicialmente un inmovilizado material adquirido mediante permuta no comercial?",
+          "respuesta": "Se valora al valor contable del activo entregado, sin reconocer ganancias o pérdidas, ya que no existe lucro en la operación."
         },
         {
-          "texto": "¿Qué elementos se incluyen en el inmovilizado material?",
-          "opciones": [
-            "Terrenos y construcciones",
-            "Maquinaria y equipos",
-            "Mobiliario y enseres",
-            "Patentes y marcas"
-          ],
-          "correctas": [0, 1, 2],
-          "explicacion": "<p>El inmovilizado material incluye elementos tangibles como <u>terrenos, construcciones, maquinaria, equipos, mobiliario y enseres</u>. Las patentes y marcas son inmovilizado intangible, no material.</p>"
+          "pregunta": "¿Qué cuenta se utiliza para registrar la amortización acumulada de un vehículo?",
+          "respuesta": "La cuenta 2818 - Amortización acumulada de elementos de transporte."
         }
       ]
     },
     {
-      "nombre": "Inmovilizado intangible",
-      "introduccion": "El inmovilizado intangible está constituido por bienes inmateriales y derechos susceptibles de valoración económica.",
+      "nombre": "Inmovilizado Intangible",
+      "introduccion": "Los activos intangibles son recursos identificables sin sustancia física, como software, patentes, marcas o fondos de comercio. Se reconocen cuando es probable que generen beneficios futuros y su coste puede medirse de forma fiable. Su tratamiento contable incluye la amortización si tienen vida útil definida y la evaluación periódica del deterioro de valor.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 6ª",
+        "NIC 38 - Activos intangibles"
+      ],
       "preguntas": [
         {
-          "texto": "¿Cuáles son ejemplos de inmovilizado intangible?",
-          "opciones": [
-            "Patentes y marcas",
-            "Aplicaciones informáticas",
-            "Derechos de traspaso",
-            "Maquinaria industrial"
-          ],
-          "correctas": [0, 1, 2],
-          "explicacion": "<p>El inmovilizado intangible incluye <u>patentes, marcas, aplicaciones informáticas, derechos de traspaso, licencias</u>, etc. La maquinaria industrial es inmovilizado material.</p>"
+          "pregunta": "¿Puede amortizarse un activo intangible con vida útil indefinida?",
+          "respuesta": "No, solo se amortizan los activos intangibles con vida útil definida. Los de vida útil indefinida se someten a prueba de deterioro anualmente."
+        },
+        {
+          "pregunta": "¿Qué cuenta se utiliza para registrar una aplicación informática en curso?",
+          "respuesta": "La cuenta 237 - Equipos para procesos de información en montaje."
+        }
+      ]
+    },
+    {
+      "nombre": "Inversiones Inmobiliarias",
+      "introduccion": "Las inversiones inmobiliarias son activos inmobiliarios no corrientes que se poseen para obtener rentas o plusvalías, y no para su uso en la producción o venta en el curso ordinario. Se clasifican en el subgrupo 22 del PGC y se valoran inicialmente al costo, con posibilidad de revaluarlas posteriormente.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 7ª",
+        "NIC 40 - Inversiones inmobiliarias"
+      ],
+      "preguntas": [
+        {
+          "pregunta": "¿Cuál es el objetivo principal de poseer una inversión inmobiliaria?",
+          "respuesta": "Obtener rentas, plusvalías o ambas, en lugar de usarla en la producción o administración."
+        },
+        {
+          "pregunta": "¿Dónde se registran las inversiones inmobiliarias en el balance?",
+          "respuesta": "En el activo no corriente, dentro del subgrupo 22."
+        }
+      ]
+    },
+    {
+      "nombre": "Inversiones Financieras a Largo Plazo",
+      "introduccion": "Este tipo de inversiones incluye valores representativos de deuda, créditos a largo plazo, instrumentos de patrimonio y derivados. Su clasificación depende del modelo de negocio y del test SPPI (flujos de efectivo contractuales). Pueden valorarse a coste amortizado, valor razonable con cambios en PYG o en patrimonio neto.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 9ª",
+        "NIIF 9 - Instrumentos financieros"
+      ],
+      "preguntas": [
+        {
+          "pregunta": "¿Cuándo se clasifica una inversión financiera como 'a valor razonable con cambios en el patrimonio neto'?",
+          "respuesta": "Cuando el modelo de negocio es mantener el activo para obtener flujos de efectivo contractuales (intereses, dividendos) y se opta por no reconocer los cambios en resultados."
+        },
+        {
+          "pregunta": "¿Qué cuenta se utiliza para registrar una inversión en acciones a largo plazo?",
+          "respuesta": "La cuenta 250 - Inversiones financieras a largo plazo en instrumentos de patrimonio."
+        }
+      ]
+    },
+    {
+      "nombre": "Deterioro de Valor",
+      "introduccion": "El deterioro de valor ocurre cuando el valor contable de un activo supera su importe recuperable, que es el mayor entre el valor razonable menos costes de venta y el valor actual de los flujos de efectivo futuros. Debe reconocerse como gasto en la cuenta de pérdidas y ganancias, y puede revertirse en ejercicios posteriores, dentro de límites.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 12ª",
+        "NIIF 9 y NIC 36 - Deterioro de valor"
+      ],
+      "preguntas": [
+        {
+          "pregunta": "¿Cómo se calcula el importe recuperable de una inversión?",
+          "respuesta": "Es el mayor entre el valor razonable menos costes de venta y el valor actual de los flujos de efectivo futuros derivados del activo."
+        },
+        {
+          "pregunta": "¿Dónde se registra la pérdida por deterioro de inmovilizado material?",
+          "respuesta": "En la cuenta 691 - Pérdidas por deterioro del inmovilizado material."
+        }
+      ]
+    },
+    {
+      "nombre": "Permutas de Activos",
+      "introduccion": "Las permutas pueden ser comerciales (con lucro) o no comerciales (sin lucro). En las no comerciales, el activo recibido se valora al valor contable del entregado. En las comerciales, se reconoce el valor razonable y puede surgir una ganancia o pérdida en resultados.",
+      "referencias": [
+        "Plan General de Contabilidad (PGC), Norma 2ª",
+        "SIC-13 - Permutas de activos no monetarios"
+      ],
+      "preguntas": [
+        {
+          "pregunta": "¿Qué diferencia hay entre una permuta comercial y una no comercial?",
+          "respuesta": "En la comercial se busca obtener un beneficio y se reconoce valor razonable; en la no comercial, se sustituye un activo sin lucro y se mantiene el valor contable."
+        },
+        {
+          "pregunta": "¿Qué cuenta se usa para registrar la ganancia en una permuta comercial de maquinaria?",
+          "respuesta": "La cuenta 771 - Beneficios procedentes del inmovilizado material."
         }
       ]
     }
