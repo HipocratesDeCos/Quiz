@@ -256,123 +256,6 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
         }
 
-        /* Botón de información adicional */
-        .info-btn {
-            color: #9b59b6;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            flex: 0 0 auto;
-        }
-
-        .info-btn:hover {
-            color: #8e44ad;
-        }
-
-        .info-btn.clicked {
-            color: #3498db !important;
-            text-decoration: underline;
-        }
-
-        /* Modal de información adicional */
-        .info-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(3px);
-        }
-
-        .info-modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalSlideIn 0.3s ease;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .info-modal-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #333;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        .info-modal-body {
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .info-modal-body h4 {
-            color: #333;
-            margin: 20px 0 10px 0;
-            font-weight: 600;
-        }
-
-        .info-modal-body p {
-            margin-bottom: 15px;
-        }
-
-        .info-modal-body ul {
-            margin: 10px 0 15px 20px;
-        }
-
-        .info-modal-body li {
-            margin-bottom: 5px;
-        }
-
         /* Feedback */
         .feedback {
             padding: 15px 20px;
@@ -459,11 +342,6 @@
                 align-items: stretch;
                 gap: 10px;
             }
-
-            .info-modal-content {
-                margin: 10% auto;
-                width: 95%;
-            }
         }
 
         @media (max-width: 480px) {
@@ -515,19 +393,6 @@
                     <!-- Las preguntas se cargan dinámicamente aquí -->
                 </div>
 
-                <!-- Modal de información adicional -->
-                <div id="info-modal" class="info-modal">
-                    <div class="info-modal-content">
-                        <div class="info-modal-header">
-                            <h3 class="info-modal-title">Información Adicional</h3>
-                            <button class="close-btn" onclick="closeInfoModal()">✕</button>
-                        </div>
-                        <div class="info-modal-body" id="info-modal-body">
-                            <!-- Contenido dinámico -->
-                        </div>
-                    </div>
-                </div>
-
                 <div class="results" id="final-results" style="display: none;">
                     <h3>¡Quiz Completado!</h3>
                     <div class="score" id="final-score">0%</div>
@@ -553,25 +418,7 @@
                             "Establecer criterios fiscales para el cálculo de impuestos",
                             "Facilitar la comparabilidad de la información financiera"
                         ],
-                        correct: [0, 1, 3],
-                        additionalInfo: {
-                            title: "Plan General de Contabilidad - Marco Normativo",
-                            content: `
-                                <h4>Objetivos del PGC:</h4>
-                                <ul>
-                                    <li><strong>Homogeneización:</strong> Establecer criterios únicos para todas las empresas</li>
-                                    <li><strong>Utilidad:</strong> Proporcionar información relevante para decisiones económicas</li>
-                                    <li><strong>Comparabilidad:</strong> Permitir comparar información entre empresas y períodos</li>
-                                    <li><strong>Transparencia:</strong> Facilitar la comprensión de la situación empresarial</li>
-                                </ul>
-                                
-                                <h4>Estructura del PGC:</h4>
-                                <p>Consta de cinco partes: Marco conceptual, Normas de registro y valoración, Cuentas anuales, Cuadro de cuentas y Definiciones y relaciones contables.</p>
-                                
-                                <h4>Ámbito de Aplicación:</h4>
-                                <p>Aplicable a todas las empresas españolas, con adaptaciones sectoriales específicas para ciertos sectores como entidades financieras o seguros.</p>
-                            `
-                        }
+                        correct: [0, 1, 3]
                     },
                     {
                         intro: "El marco conceptual de la contabilidad define los conceptos fundamentales sobre los que se basa la información financiera. Incluye las características cualitativas de la información contable como la relevancia, fiabilidad, comparabilidad y comprensibilidad. Estas características aseguran que los estados financieros sean útiles para los usuarios.",
@@ -696,28 +543,7 @@
                             "Subvenciones, donaciones y legados recibidos",
                             "Deudas a largo plazo"
                         ],
-                        correct: [0, 1, 2],
-                        additionalInfo: {
-                            title: "Componentes del Patrimonio Neto",
-                            content: `
-                                <h4>Fondos Propios:</h4>
-                                <ul>
-                                    <li><strong>Capital:</strong> Aportaciones de socios o accionistas</li>
-                                    <li><strong>Prima de emisión:</strong> Sobreprecio pagado por encima del valor nominal</li>
-                                    <li><strong>Reservas:</strong> Beneficios retenidos de ejercicios anteriores</li>
-                                    <li><strong>Resultado del ejercicio:</strong> Beneficio o pérdida del período actual</li>
-                                </ul>
-                                
-                                <h4>Otros instrumentos de patrimonio neto:</h4>
-                                <ul>
-                                    <li>Subvenciones, donaciones y legados recibidos</li>
-                                    <li>Diferencias de conversión</li>
-                                    <li>Ajustes por cambios de valor</li>
-                                </ul>
-                                
-                                <p>El patrimonio neto representa la participación de los propietarios en la empresa y actúa como garantía frente a terceros.</p>
-                            `
-                        }
+                        correct: [0, 1, 2]
                     },
                     {
                         intro: "El capital social representa las aportaciones realizadas por los socios o accionistas. Puede ser dinerario (en efectivo) o no dinerario (en especie). El capital suscrito es el comprometido por los socios, mientras que el capital desembolsado es el efectivamente aportado. La diferencia constituye dividendos pasivos.",
@@ -728,22 +554,7 @@
                             "La diferencia son los dividendos pasivos",
                             "Ambos conceptos son siempre iguales"
                         ],
-                        correct: [0, 1, 2],
-                        additionalInfo: {
-                            title: "Capital Social: Suscrito vs Desembolsado",
-                            content: `
-                                <h4>Capital Suscrito:</h4>
-                                <p>Es el importe total que los socios se han comprometido a aportar a la sociedad según los estatutos.</p>
-                                
-                                <h4>Capital Desembolsado:</h4>
-                                <p>Es la parte del capital suscrito que los socios han aportado efectivamente a la empresa.</p>
-                                
-                                <h4>Dividendos Pasivos:</h4>
-                                <p>Representan la deuda que mantienen los socios con la empresa por la parte del capital suscrito pero no desembolsado.</p>
-                                
-                                <p><strong>Ejemplo:</strong> Si una sociedad tiene un capital de 100.000€ y los socios han aportado 60.000€, el capital suscrito es 100.000€, el desembolsado 60.000€ y los dividendos pasivos 40.000€.</p>
-                            `
-                        }
+                        correct: [0, 1, 2]
                     },
                     {
                         intro: "Las reservas son beneficios retenidos en la empresa procedentes de ejercicios anteriores o de operaciones específicas. Se clasifican en reservas legales (obligatorias por ley), estatutarias (establecidas en estatutos), voluntarias (acordadas por la junta) y especiales (por normativa específica). Su función es reforzar la solvencia y autofinanciar la empresa.",
@@ -775,11 +586,6 @@
             content.innerHTML = '';
 
             quiz.questions.forEach((q, index) => {
-                let infoBtnHtml = '';
-                if (q.additionalInfo) {
-                    infoBtnHtml = `<span class="info-btn" onclick="openInfoModal(this, ${JSON.stringify(q)})">¿Más información?</span>`;
-                }
-
                 content.innerHTML += `
                     <div class="question">
                         ${q.intro ? `<div class="question-intro"><p>${q.intro}</p></div>` : ''}
@@ -792,7 +598,6 @@
                         <div class="feedback" id="feedback-${index}" style="display:none;"></div>
                         <div class="question-actions">
                             <button class="btn btn-validate" onclick="validateAnswer(${index}, ${JSON.stringify(q.correct)})">Validar respuesta</button>
-                            ${infoBtnHtml}
                         </div>
                     </div>
                 `;
@@ -847,33 +652,6 @@
 
             document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
         }
-
-        // Abrir modal con info adicional
-        function openInfoModal(btn, question) {
-            const modal = document.getElementById('info-modal');
-            const title = document.querySelector('.info-modal-title');
-            const body = document.getElementById('info-modal-body');
-
-            title.textContent = question.additionalInfo.title || 'Información Adicional';
-            body.innerHTML = question.additionalInfo.content;
-            modal.style.display = 'flex';
-
-            // Marcar botón como clicado
-            btn.classList.add('clicked');
-        }
-
-        // Cerrar modal
-        function closeInfoModal() {
-            document.getElementById('info-modal').style.display = 'none';
-        }
-
-        // Cerrar modal al hacer clic fuera
-        window.onclick = function(event) {
-            const modal = document.getElementById('info-modal');
-            if (event.target === modal) {
-                closeInfoModal();
-            }
-        };
 
         // Inicializar menú
         document.addEventListener('DOMContentLoaded', () => {
