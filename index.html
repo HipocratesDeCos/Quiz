@@ -256,6 +256,77 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
         }
 
+        /* Botón Saber más */
+        .btn-saber-mas {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-decoration: underline;
+            transition: all 0.3s ease;
+        }
+
+        .btn-saber-mas:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* Modal "Saber más" */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
         /* Feedback */
         .feedback {
             padding: 15px 20px;
@@ -403,8 +474,17 @@
         </div>
     </div>
 
+    <!-- Modal Saber más -->
+    <div class="modal" id="saberMasModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-title">Saber más</div>
+            <div id="saberMasContent"></div>
+        </div>
+    </div>
+
     <script>
-        // Datos de los quizzes
+        // Datos de los quizzes con "saber_mas" basado en PDFs
         const quizData = {
             "contabilidad-basica": {
                 title: "Introducción al Plan General de Contabilidad",
@@ -418,7 +498,8 @@
                             "Establecer criterios fiscales para el cálculo de impuestos",
                             "Facilitar la comparabilidad de la información financiera"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "El Plan General de Contabilidad (PGC) tiene como finalidad principal proporcionar un marco normativo común que permita la elaboración de estados financieros homogéneos, comprensibles y comparables entre diferentes empresas. Este objetivo es clave para que los usuarios, como inversores, acreedores o analistas, puedan tomar decisiones económicas fundamentadas. Además, el PGC establece que la información contable debe ser útil, relevante y fiable, cumpliendo con los requisitos del marco conceptual. La homogeneidad permite comparar la situación financiera de empresas del mismo sector, mientras que la utilidad se logra mediante la adecuada presentación y valoración de los elementos patrimoniales. También facilita la labor de auditoría y supervisión por parte de organismos públicos. Por ejemplo, una empresa que cambia de sector o amplía su actividad debe seguir los mismos criterios contables para mantener la continuidad y comparabilidad. En resumen, el PGC no solo regula el registro contable, sino que también garantiza la transparencia y la calidad de la información financiera, siendo un pilar fundamental del sistema económico."
                     },
                     {
                         intro: "El marco conceptual de la contabilidad define los conceptos fundamentales sobre los que se basa la información financiera. Incluye las características cualitativas de la información contable como la relevancia, fiabilidad, comparabilidad y comprensibilidad. Estas características aseguran que los estados financieros sean útiles para los usuarios.",
@@ -429,7 +510,8 @@
                             "Materialidad y prudencia",
                             "Verificabilidad y representación fiel"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "Las características cualitativas de la información contable son esenciales para que los estados financieros cumplan su objetivo de utilidad. La relevancia implica que la información influye en las decisiones económicas de los usuarios, por ejemplo, al evaluar flujos de efectivo futuros. La fiabilidad exige que la información sea veraz, completa y libre de sesgos, representando fielmente lo que pretende mostrar. La comparabilidad permite a los usuarios identificar cambios en la situación financiera a lo largo del tiempo y entre diferentes empresas, lo cual es crucial para inversionistas. La comprensibilidad asegura que la información sea clara y entendible para personas con conocimientos razonables de contabilidad. Además, el marco conceptual del PGC reconoce cualidades derivadas como la verificabilidad (distintos observadores llegan a conclusiones similares) y la representación fiel. Por ejemplo, un activo debe registrarse al costo de adquisición porque es un dato verificable, no a un valor subjetivo. Estas cualidades no son independientes, sino que deben equilibrarse para lograr información útil."
                     },
                     {
                         intro: "Los elementos de los estados financieros son los componentes básicos que reflejan la situación económica y financiera de una empresa. Se clasifican en elementos relacionados con la situación financiera (activos, pasivos y patrimonio neto) y elementos relacionados con el rendimiento (ingresos y gastos).",
@@ -440,7 +522,8 @@
                             "Flujos de efectivo",
                             "Capital social"
                         ],
-                        correct: [0, 1]
+                        correct: [0, 1],
+                        saber_mas: "Los elementos básicos de los estados financieros son los componentes fundamentales que permiten representar la situación patrimonial, financiera y de resultados de una empresa. Los relacionados con la situación financiera son el activo, el pasivo y el patrimonio neto, que se presentan en el balance. El activo comprende recursos controlados por la empresa con beneficios económicos futuros, como maquinaria o clientes. El pasivo incluye obligaciones presentes, como deudas con proveedores o préstamos bancarios. El patrimonio neto es la diferencia entre activo y pasivo, representando los fondos propios. Por otro lado, los elementos de rendimiento son los ingresos y gastos, que aparecen en la cuenta de pérdidas y ganancias. Los ingresos provienen de la venta de bienes o servicios, mientras que los gastos son los costos necesarios para generar esos ingresos. Aunque los flujos de efectivo son importantes, no son un elemento básico en el sentido del marco conceptual, sino que se derivan del análisis del efectivo en movimiento. Estos elementos son la base para la elaboración de los estados contables y deben cumplir criterios de reconocimiento y valoración."
                     },
                     {
                         intro: "Un activo es un recurso controlado por la empresa como resultado de eventos pasados, del cual se espera obtener beneficios económicos futuros. Para ser reconocido como activo, debe cumplir criterios de identificabilidad, control y beneficio económico futuro. Los activos se clasifican según su naturaleza y liquidez.",
@@ -451,7 +534,8 @@
                             "Proporcionar beneficios económicos futuros",
                             "Tener valor de mercado conocido"
                         ],
-                        correct: [0, 1, 2]
+                        correct: [0, 1, 2],
+                        saber_mas: "Para que un elemento sea reconocido como activo en los estados financieros, debe cumplir tres condiciones esenciales según el marco conceptual del PGC: primero, debe ser un recurso controlado por la empresa, lo que significa que la empresa tiene poder sobre sus beneficios. Segundo, debe provenir de eventos pasados, como una compra o una producción. Tercero, debe esperarse que genere beneficios económicos futuros, como ingresos por venta o ahorros en costos. Por ejemplo, una máquina adquirida en un leasing financiero es un activo porque la empresa la controla, fue adquirida en el pasado y generará producción futura. No es necesario que tenga un valor de mercado conocido; por ejemplo, un software desarrollado internamente puede ser un activo si cumple los criterios de reconocimiento. Además, el activo debe ser identificable y probable su beneficio. Esta definición excluye elementos como los recursos humanos, que aunque generan beneficios, no pueden controlarse exclusivamente. El reconocimiento de activos es clave para reflejar fielmente la situación patrimonial de la empresa."
                     },
                     {
                         intro: "Los pasivos representan obligaciones presentes de la empresa surgidas como consecuencia de eventos pasados, cuya liquidación se espera que resulte en una salida de recursos que incorporan beneficios económicos. Los pasivos incluyen deudas, provisiones y otras obligaciones.",
@@ -462,7 +546,8 @@
                             "Resulta de eventos pasados",
                             "Su liquidación implica salida de beneficios económicos"
                         ],
-                        correct: [0, 2, 3]
+                        correct: [0, 2, 3],
+                        saber_mas: "Un pasivo es una obligación presente de la empresa que surge como consecuencia de eventos pasados y cuya liquidación espera generar una salida de recursos con beneficios económicos. Esta definición, establecida en el marco conceptual del PGC, excluye compromisos futuros no vinculantes. Por ejemplo, una deuda con un proveedor por compras realizadas es un pasivo, ya que el evento pasado (la compra) ha generado una obligación actual de pago. La salida de recursos puede ser en efectivo, entrega de activos o prestación de servicios. Los pasivos se clasifican en corrientes y no corrientes según su vencimiento. No todos los compromisos son pasivos; por ejemplo, un contrato de alquiler futuro no es un pasivo hasta que se inicia el periodo de uso. Las provisiones también son pasivos, cuando existe una obligación actual por eventos pasados, aunque el monto sea incierto. La correcta identificación de pasivos es crucial para evaluar la solvencia y liquidez de la empresa, ya que afecta directamente al patrimonio neto. Un error en el reconocimiento puede distorsionar la imagen fiel del balance."
                     }
                 ]
             },
@@ -478,7 +563,8 @@
                             "Están destinados para la venta inmediata",
                             "No están destinados a la venta en el curso normal de la explotación"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "El activo no corriente, también conocido como inmovilizado, está compuesto por aquellos elementos que la empresa utiliza de forma duradera en su actividad productiva o de servicios. Su principal característica es la permanencia, ya que su vida útil supera el año natural o el ciclo de explotación. No están destinados a la venta, a diferencia del activo corriente, sino que participan en el proceso productivo. Se clasifica en inmovilizado material (como terrenos, construcciones, maquinaria), inmovilizado intangible (patentes, software, marcas) e inversiones financieras a largo plazo (participaciones en otras empresas). El PGC exige que se valoren inicialmente por su coste de adquisición o producción, incluyendo todos los gastos necesarios para su puesta en funcionamiento. Posteriormente, se amortizan de forma sistemática, excepto los terrenos. Por ejemplo, una fábrica de automóviles registra sus máquinas como activo no corriente porque son esenciales para su producción a largo plazo. Esta clasificación permite a los usuarios del balance distinguir entre recursos de uso permanente y temporal, mejorando la comprensión de la estructura patrimonial."
                     },
                     {
                         intro: "El inmovilizado material son elementos tangibles, muebles o inmuebles, que la empresa utiliza en su proceso productivo o para proporcionar bienes y servicios. Incluye terrenos, construcciones, maquinaria, equipos informáticos, mobiliario y vehículos. Se valoran inicialmente por su coste de adquisición o producción.",
@@ -489,7 +575,8 @@
                             "Patentes y marcas",
                             "Mobiliario y elementos de transporte"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "El inmovilizado material comprende los activos tangibles que la empresa utiliza en su actividad productiva o administrativa de forma duradera. Según el PGC, se clasifica en subgrupos como terrenos y bienes naturales (210), construcciones (211), maquinaria (213), equipos para procesos de información (217), mobiliario (216) y elementos de transporte (218). Estos elementos son físicos y pueden depreciarse por uso o obsolescencia, excepto los terrenos, que no se amortizan. El valor inicial incluye el precio de compra, impuestos, transportes, instalación y otros gastos necesarios para su puesta en funcionamiento. Por ejemplo, al adquirir un ordenador para la oficina, se incluye el IVA deducible, el transporte y la instalación del software. La amortización se realiza de forma sistemática durante su vida útil estimada, generalmente por el método lineal. Es importante distinguirlo del inmovilizado intangible, como patentes o marcas, que carecen de sustancia física. Esta clasificación permite una adecuada gestión patrimonial y fiscal, ya que afecta a la depreciación y a la inversión neta."
                     },
                     {
                         intro: "La amortización es la distribución sistemática del valor amortizable de un activo a lo largo de su vida útil. El valor amortizable es el coste de adquisición menos el valor residual. Se debe amortizar de forma sistemática y racional, normalmente mediante el método lineal, durante la vida útil estimada del bien.",
@@ -500,7 +587,8 @@
                             "Se aplica solo cuando el activo genera pérdidas",
                             "Debe ser sistemática y racional"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "La amortización es el proceso contable mediante el cual se distribuye el valor de un activo no corriente a lo largo de su vida útil. Su objetivo es reflejar el desgaste, obsolescencia o agotamiento del recurso. El valor amortizable se calcula como el coste de adquisición o producción menos el valor residual esperado al final de su vida útil. Este valor se distribuye sistemáticamente, generalmente mediante el método lineal, que asigna la misma cuota anual. Por ejemplo, una máquina de 10.000 € con valor residual de 1.000 € y vida útil de 9 años tendrá una amortización anual de 1.000 €. El PGC exige que la amortización sea racional y coherente con el patrón de consumo de beneficios económicos del activo. No se aplica solo en pérdidas, sino como un gasto periódico que afecta al resultado. La amortización acumulada se resta del valor en libros para obtener el valor neto contable. Este proceso es clave para la depreciación del inmovilizado y para determinar la inversión neta de la empresa, influyendo en ratios de rentabilidad y solvencia."
                     }
                 ]
             },
@@ -516,7 +604,8 @@
                             "Incluye elementos destinados al uso permanente",
                             "Comprende efectivo y equivalentes de efectivo"
                         ],
-                        correct: [0, 1, 3]
+                        correct: [0, 1, 3],
+                        saber_mas: "El activo corriente está formado por aquellos elementos que la empresa espera convertir en efectivo, vender o consumir dentro del ciclo normal de su explotación, que generalmente no excede un año. Según el PGC, incluye existencias (grupo 3), deudores comerciales y otras cuentas a cobrar (grupo 4), inversiones financieras a corto plazo, efectivo y equivalentes (grupo 5). Su principal característica es la liquidez, es decir, la rapidez con la que puede transformarse en dinero. Por ejemplo, las mercaderías se venden, los clientes pagan, y el efectivo se utiliza para pagar proveedores. A diferencia del activo no corriente, no está destinado al uso permanente. El ciclo de explotación puede variar según el sector; en una constructora, puede superar el año. El activo corriente es clave para analizar la solvencia a corto plazo (ratio de liquidez). Además, debe valorarse al costo o al valor neto realizable, según el caso. Su correcta gestión asegura la continuidad operativa y evita problemas de tesorería."
                     },
                     {
                         intro: "Las existencias son activos mantenidos para la venta en el curso ordinario del negocio, en proceso de producción para dicha venta, o en forma de materiales o suministros para ser consumidos en el proceso de producción o prestación de servicios. Se clasifican en materias primas, productos en curso, productos terminados y mercaderías.",
@@ -527,7 +616,8 @@
                             "Mercaderías para reventa",
                             "Inmovilizado material disponible para venta"
                         ],
-                        correct: [0, 1, 2]
+                        correct: [0, 1, 2],
+                        saber_mas: "La contabilidad reconoce varios tipos de existencias según su estado y finalidad. Las materias primas y otros aprovisionamientos son bienes que se consumirán en el proceso productivo, como acero en una fábrica de automóviles. Los productos en curso son aquellos que aún están en proceso de fabricación y no están terminados. Los productos terminados son bienes ya finalizados y listos para la venta. Las mercaderías son productos adquiridos para su reventa sin transformación, como en una tienda. Todas estas categorías se incluyen en el grupo 3 del PGC. Es importante no confundirlas con el inmovilizado material, aunque una empresa pueda vender maquinaria usada; en ese caso, se trata de una baja, no de existencias. Las existencias se valoran al costo o al valor neto realizable, según el criterio de prudencia. Además, deben revisarse anualmente por deterioro. Una correcta clasificación y valoración de existencias es esencial para determinar el coste de ventas y el beneficio bruto, afectando directamente al resultado del ejercicio."
                     }
                 ]
             },
@@ -543,7 +633,8 @@
                             "Subvenciones, donaciones y legados recibidos",
                             "Deudas a largo plazo"
                         ],
-                        correct: [0, 1, 2]
+                        correct: [0, 1, 2],
+                        saber_mas: "El patrimonio neto representa la diferencia entre el activo total y el pasivo total de la empresa, es decir, los fondos propios. Está compuesto por varios elementos: el capital social, que es la aportación de los socios; las reservas, que son beneficios retenidos (legales, estatutarias, voluntarias); los resultados de ejercicios anteriores, que son beneficios o pérdidas acumuladas no distribuidas; y el resultado del ejercicio en curso. Además, pueden incluirse subvenciones, donaciones y legados recibidos, que aumentan el patrimonio sin ser ingresos operativos. Estos elementos se recogen en el grupo 1 del balance. Las deudas a largo plazo son pasivos, no parte del patrimonio. El patrimonio neto es un indicador clave de la solvencia y estabilidad financiera. Por ejemplo, una empresa con alto patrimonio neto puede autofinanciar su crecimiento sin recurrir a deuda. Su correcta presentación es esencial para la imagen fiel del balance."
                     },
                     {
                         intro: "El capital social representa las aportaciones realizadas por los socios o accionistas. Puede ser dinerario (en efectivo) o no dinerario (en especie). El capital suscrito es el comprometido por los socios, mientras que el capital desembolsado es el efectivamente aportado. La diferencia constituye dividendos pasivos.",
@@ -554,7 +645,8 @@
                             "La diferencia son los dividendos pasivos",
                             "Ambos conceptos son siempre iguales"
                         ],
-                        correct: [0, 1, 2]
+                        correct: [0, 1, 2],
+                        saber_mas: "El capital social se divide en capital suscrito y capital desembolsado. El capital suscrito es el monto total que los socios se comprometen a aportar al constituir la sociedad, según los estatutos. El capital desembolsado es la parte que ya han pagado efectivamente, en efectivo o en especie. La diferencia entre ambos es el capital pendiente de desembolsar, que se registra como 'dividendos pasivos' en el pasivo, ya que la empresa tiene derecho a exigir el pago. Por ejemplo, si una empresa tiene un capital suscrito de 100.000 € y solo se han aportado 70.000 €, los 30.000 € restantes son dividendos pasivos. Esto afecta al patrimonio neto, ya que solo el capital desembolsado forma parte de los fondos propios. Esta distinción es clave para evaluar la fortaleza financiera real de la empresa."
                     },
                     {
                         intro: "Las reservas son beneficios retenidos en la empresa procedentes de ejercicios anteriores o de operaciones específicas. Se clasifican en reservas legales (obligatorias por ley), estatutarias (establecidas en estatutos), voluntarias (acordadas por la junta) y especiales (por normativa específica). Su función es reforzar la solvencia y autofinanciar la empresa.",
@@ -564,7 +656,8 @@
                             "Reservas estatutarias y voluntarias",
                             "Reservas especiales por normativa"
                         ],
-                        correct: [0, 1, 2]
+                        correct: [0, 1, 2],
+                        saber_mas: "Las reservas son partidas del patrimonio neto que representan beneficios retenidos en la empresa. La reserva legal es obligatoria por ley (10% del beneficio hasta alcanzar el 20% del capital) y refuerza la solvencia. Las reservas estatutarias se crean según los estatutos sociales, y las voluntarias son acordadas por la junta de accionistas para autofinanciar inversiones. Las reservas especiales se forman por normativa específica, como por subvenciones o diferencias de cambio. Todas ellas aumentan el patrimonio neto y limitan la distribución de dividendos, protegiendo a los acreedores. Por ejemplo, una empresa con beneficios puede destinar parte a reservas voluntarias para financiar una expansión. Las reservas son clave para la estabilidad financiera y la capacidad de crecimiento interno."
                     }
                 ]
             }
@@ -598,6 +691,7 @@
                         <div class="feedback" id="feedback-${index}" style="display:none;"></div>
                         <div class="question-actions">
                             <button class="btn btn-validate" onclick="validateAnswer(${index}, ${JSON.stringify(q.correct)})">Validar respuesta</button>
+                            <button class="btn-saber-mas" onclick="openModal(${index}, '${quizId}')">Saber más</button>
                         </div>
                     </div>
                 `;
@@ -652,6 +746,28 @@
 
             document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
         }
+
+        // Abrir modal "Saber más"
+        function openModal(qIndex, quizId) {
+            const modal = document.getElementById('saberMasModal');
+            const content = document.getElementById('saberMasContent');
+            const question = quizData[quizId].questions[qIndex];
+            content.innerHTML = `<p>${question.saber_mas}</p>`;
+            modal.style.display = 'flex';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('saberMasModal').style.display = 'none';
+        }
+
+        // Cerrar al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('saberMasModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
 
         // Inicializar menú
         document.addEventListener('DOMContentLoaded', () => {
