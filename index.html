@@ -5,43 +5,382 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperQuiz</title>
     <style>
-<style>
-    /* ... todo el CSS existente ... */
-
-    /* === AJUSTES PERSONALIZADOS === */
-    .quiz-list .btn {
-        max-width: 400px;
-        width: 100%;
-        margin: 0 auto;
-        justify-self: center;
-        text-align: center;
-    }
-
-    .quiz-list {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .question-actions {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .btn-validate {
-        max-width: 200px;
-        width: 100%;
-        margin: 0 10px;
-    }
-
-    .btn-saber-mas {
-        font-size: 0.95rem;
-        padding: 10px 15px;
-        margin: 0 10px;
-    }
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .page {
+            display: none;
+            flex: 1;
+        }
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .main-menu {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+            text-align: center;
+        }
+        .main-buttons {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 20px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            font-family: inherit;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+            filter: brightness(1.1);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            pointer-events: none;
+        }
+        .quiz-menu {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+        .quiz-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+        .quiz-list .btn {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-home {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        .btn-home:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+        .instructions {
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4caf50;
+        }
+        .instructions p {
+            margin: 0;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+        .question {
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .question:last-child {
+            border-bottom: none;
+        }
+        .question-intro {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        .question-intro p {
+            margin: 0;
+            color: #495057;
+            line-height: 1.6;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .option:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+        .option.selected {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-color: #007bff;
+            color: white;
+        }
+        .option.correct {
+            background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+            border-color: #28a745;
+            color: white;
+        }
+        .option.incorrect {
+            background: linear-gradient(135deg, #ff7979 0%, #eb4d4b 100%);
+            border-color: #dc3545;
+            color: white;
+        }
+        .question-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn-validate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            padding: 12px 20px;
+            font-size: 1rem;
+            max-width: 200px;
+            width: 100%;
+        }
+        .btn-validate:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        .btn-validate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+        .btn-saber-mas {
+            color: #667eea;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 0;
+            margin: 0 10px;
+        }
+        .btn-saber-mas:hover {
+            color: #555;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .modal-close:hover {
+            color: #000;
+        }
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .modal-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .modal-content u {
+            text-decoration: none;
+            border-bottom: 1px dotted #007bff;
+            cursor: help;
+        }
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .results h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .results .score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        .results .message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .quiz-container, .quiz-menu, .main-menu {
+                padding: 20px;
+            }
+            .question-text {
+                font-size: 1.1rem;
+            }
+            .btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .question-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .btn-validate {
+                max-width: 100%;
+            }
+            .btn-saber-mas {
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-
     <!-- Página principal -->
     <div class="container page active" id="main-page">
         <div class="header">
@@ -58,7 +397,6 @@
             </div>
         </div>
     </div>
-
     <!-- Menú de contabilidad -->
     <div class="page" id="menu-page">
         <div class="header">
@@ -71,7 +409,6 @@
             <button class="btn btn-home" style="margin-top: 20px;" onclick="showPage('main-page')">← Volver</button>
         </div>
     </div>
-
     <!-- Página del quiz -->
     <div class="page" id="quiz-page">
         <div class="quiz-container">
@@ -79,13 +416,10 @@
                 <h2 class="quiz-title" id="quiz-title">Título del Quiz</h2>
                 <button class="btn btn-home" onclick="showPage('menu-page')">🏠 Inicio</button>
             </div>
-
             <div class="instructions">
                 <p>💡 Selecciona una o varias respuestas. Algunas preguntas tienen más de una correcta.</p>
             </div>
-
             <div id="quiz-content"></div>
-
             <div class="results" id="final-results" style="display: none;">
                 <h3>¡Quiz Completado!</h3>
                 <div class="score" id="final-score">0%</div>
@@ -94,7 +428,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal Saber más -->
     <div class="modal" id="saberMasModal">
         <div class="modal-content">
@@ -103,7 +436,6 @@
             <div id="saberMasContent"></div>
         </div>
     </div>
-
     <script>
         const quizData = {
             "contabilidad-basica": {
@@ -204,18 +536,15 @@
                 ]
             }
         };
-
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
-
         function loadQuiz(quizId) {
             const quiz = quizData[quizId];
             document.getElementById('quiz-title').textContent = quiz.title;
             const content = document.getElementById('quiz-content');
             content.innerHTML = '';
-
             quiz.questions.forEach((q, index) => {
                 content.innerHTML += `
                     <div class="question">
@@ -234,45 +563,35 @@
                     </div>
                 `;
             });
-
             showPage('quiz-page');
         }
-
         function toggleSelect(option, qIndex, oIndex) {
             option.classList.toggle('selected');
         }
-
         function validateAnswer(qIndex, correct) {
             const options = document.querySelectorAll(`#options-${qIndex} .option`);
             const feedback = document.getElementById(`feedback-${qIndex}`);
             let selected = [];
-
             options.forEach((opt, i) => {
                 if (opt.classList.contains('selected')) selected.push(i);
             });
-
             if (selected.length === 0) {
                 feedback.textContent = 'Selecciona al menos una opción.';
                 feedback.className = 'feedback incorrect';
                 feedback.style.display = 'block';
                 return;
             }
-
             const isCorrect = selected.length === correct.length && selected.every(i => correct.includes(i)) && correct.every(i => selected.includes(i));
-
             feedback.textContent = isCorrect ? '¡Correcto!' : 'Incorrecto. Revisa tus selecciones.';
             feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
             feedback.style.display = 'block';
-
             options.forEach((opt, i) => {
                 if (correct.includes(i)) opt.classList.add('correct');
                 else if (selected.includes(i) && !correct.includes(i)) opt.classList.add('incorrect');
                 opt.style.pointerEvents = 'none';
             });
-
             document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
         }
-
         function openModal(qIndex, quizId) {
             const modal = document.getElementById('saberMasModal');
             const content = document.getElementById('saberMasContent');
@@ -280,16 +599,13 @@
             content.innerHTML = question.saber_mas;
             modal.style.display = 'flex';
         }
-
         function closeModal() {
             document.getElementById('saberMasModal').style.display = 'none';
         }
-
         window.onclick = function(event) {
             const modal = document.getElementById('saberMasModal');
             if (event.target === modal) closeModal();
         };
-
         document.addEventListener('DOMContentLoaded', () => {
             const quizList = document.getElementById('quiz-list');
             for (const [id, quiz] of Object.entries(quizData)) {
