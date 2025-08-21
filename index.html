@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperQuiz</title>
     <style>
-        /* Reset y configuración base */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Contenedor principal */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -30,7 +28,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -49,7 +46,6 @@
             opacity: 0.9;
         }
 
-        /* Páginas */
         .page {
             display: none;
             flex: 1;
@@ -60,7 +56,6 @@
             flex-direction: column;
         }
 
-        /* Menú principal */
         .main-menu {
             background: white;
             border-radius: 20px;
@@ -109,7 +104,6 @@
             pointer-events: none;
         }
 
-        /* Quiz menu */
         .quiz-menu {
             background: white;
             border-radius: 20px;
@@ -124,7 +118,6 @@
             margin-top: 20px;
         }
 
-        /* Quiz container */
         .quiz-container {
             background: white;
             border-radius: 20px;
@@ -159,7 +152,6 @@
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
         }
 
-        /* Instrucciones */
         .instructions {
             background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 100%);
             padding: 20px;
@@ -174,7 +166,6 @@
             color: #2e7d32;
         }
 
-        /* Pregunta */
         .question {
             margin-bottom: 40px;
             padding: 30px 0;
@@ -183,13 +174,6 @@
 
         .question:last-child {
             border-bottom: none;
-        }
-
-        .question-number {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 15px;
         }
 
         .question-intro {
@@ -213,7 +197,6 @@
             color: #333;
         }
 
-        /* Opciones */
         .options {
             display: grid;
             gap: 10px;
@@ -253,7 +236,6 @@
             color: white;
         }
 
-        /* Contenedor de botones de pregunta */
         .question-actions {
             display: flex;
             align-items: center;
@@ -261,7 +243,6 @@
             margin: 20px 0;
         }
 
-        /* Botón validar */
         .btn-validate {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -279,7 +260,6 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
         }
 
-        /* Botón Saber más (solo texto subrayado) */
         .btn-saber-mas {
             color: #667eea;
             text-decoration: underline;
@@ -296,7 +276,6 @@
             color: #555;
         }
 
-        /* Modal "Saber más" */
         .modal {
             display: none;
             position: fixed;
@@ -360,7 +339,6 @@
             cursor: help;
         }
 
-        /* Feedback */
         .feedback {
             padding: 15px 20px;
             border-radius: 12px;
@@ -380,7 +358,6 @@
             color: #721c24;
         }
 
-        /* Resultados finales */
         .results {
             text-align: center;
             padding: 30px;
@@ -411,7 +388,6 @@
             margin-bottom: 20px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -443,6 +419,7 @@
     </style>
 </head>
 <body>
+
     <!-- Página principal -->
     <div class="container page active" id="main-page">
         <div class="header">
@@ -450,7 +427,7 @@
             <p>Plataforma de aprendizaje interactivo</p>
         </div>
         <div class="main-menu">
-            <h2>Selecciona una área</h2>
+            <h2>Selecciona un área</h2>
             <div class="main-buttons">
                 <button class="btn" onclick="showPage('menu-page')">CONTABILIDAD</button>
                 <button class="btn btn-disabled">MARKETING</button>
@@ -468,9 +445,7 @@
         </div>
         <div class="quiz-menu">
             <h2>Selecciona un tema</h2>
-            <div class="quiz-list" id="quiz-list">
-                <!-- Cargado dinámicamente -->
-            </div>
+            <div class="quiz-list" id="quiz-list"></div>
             <button class="btn btn-home" style="margin-top: 20px;" onclick="showPage('main-page')">← Volver</button>
         </div>
     </div>
@@ -487,9 +462,7 @@
                 <p>💡 Selecciona una o varias respuestas. Algunas preguntas tienen más de una correcta.</p>
             </div>
 
-            <div id="quiz-content">
-                <!-- Preguntas cargadas dinámicamente -->
-            </div>
+            <div id="quiz-content"></div>
 
             <div class="results" id="final-results" style="display: none;">
                 <h3>¡Quiz Completado!</h3>
@@ -510,7 +483,6 @@
     </div>
 
     <script>
-        // Datos de los quizzes (todos con 25-30 preguntas)
         const quizData = {
             "contabilidad-basica": {
                 title: "Introducción al Plan General de Contabilidad",
@@ -532,15 +504,20 @@
                         options: ["Relevancia", "Fiabilidad", "Comparabilidad", "Comprensibilidad"],
                         correct: [0],
                         saber_mas: "<p>La <u>relevancia</u> es una característica cualitativa fundamental que implica que la información contable influye en las decisiones económicas de los usuarios. Para ser relevante, debe tener <u>valor predictivo</u> o <u>valor confirmatorio</u>.</p><p>Por ejemplo, conocer el nivel de deuda de una empresa ayuda a prever su solvencia futura. La <u>materialidad</u> está relacionada con la relevancia: un dato es material si su omisión o error podría influir en las decisiones.</p><p>Según el marco conceptual del PGC, sin relevancia, la información pierde su utilidad principal, aunque sea fiable o comparable.</p>"
+                    },
+                    {
+                        question: "3. ¿Qué principio contable exige que los ingresos y gastos se registren cuando se generan, no cuando se cobran o pagan?",
+                        options: ["Devengo", "Prudencia", "Importancia relativa", "Asociación de ingresos y gastos"],
+                        correct: [0],
+                        saber_mas: "<p>El <u>principio del devengo</u> establece que los ingresos y gastos deben reconocerse en el momento en que se generan, independientemente de cuándo se cobren o paguen. Es fundamental para la <u>imagen fiel</u> del resultado.</p><p>Por ejemplo, si una empresa vende en diciembre y cobra en enero, el ingreso se registra en diciembre. Este principio permite una adecuada <u>asociación de ingresos y gastos</u> en el período correspondiente.</p><p>El devengo es clave para diferenciar entre <u>tesorería</u> y <u>resultado</u>, evitando distorsiones por la cronología del cobro.</p>"
                     }
-                    // Más preguntas (28 en total)...
                 ]
             },
             "inversion-no-corriente": {
                 title: "Inversión No Corriente - Activo Fijo",
                 questions: [
                     {
-                        intro: "El activo no corriente comprende elementos destinados a servir de forma duradera en la actividad de la empresa, con una vida útil superior al año.",
+                        intro: "El activo no corriente comprende elementos destinados a servir de forma duradera en la actividad de la empresa.",
                         question: "1. ¿Qué caracteriza al activo no corriente?",
                         options: [
                             "Permanencia superior a un año",
@@ -551,14 +528,13 @@
                         correct: [0, 2, 3],
                         saber_mas: "<p>El <u>activo no corriente</u>, también llamado <u>inmovilizado</u>, está formado por activos que la empresa utiliza de forma duradera. Su principal característica es la <u>permanencia</u>, con vida útil superior al año o ciclo de explotación.</p><p>No está destinado a la venta, sino a participar en el proceso productivo. Se clasifica en <u>inmovilizado material</u> (maquinaria, construcciones), <u>intangible</u> (patentes, software) y <u>financiero</u> (participaciones a largo plazo).</p><p>Según el PGC, se valora inicialmente por <u>coste de adquisición o producción</u>. Posteriormente, se <u>amortiza</u> sistemáticamente, excepto los terrenos.</p>"
                     }
-                    // 29 más...
                 ]
             },
             "inversion-corriente": {
                 title: "Inversión Corriente - Activo Circulante",
                 questions: [
                     {
-                        intro: "El activo corriente incluye elementos que se espera realizar en el ciclo normal de explotación, generalmente inferior a un año.",
+                        intro: "El activo corriente incluye elementos que se espera realizar en el ciclo normal de explotación.",
                         question: "1. ¿Qué elementos forman parte del activo corriente?",
                         options: [
                             "Existencias",
@@ -569,7 +545,6 @@
                         correct: [0, 1, 2],
                         saber_mas: "<p>El <u>activo corriente</u> comprende recursos que la empresa espera convertir en efectivo, vender o consumir en el ciclo de explotación. Según el PGC, incluye <u>existencias</u> (grupo 3), <u>deudores</u> (grupo 4) y <u>tesorería</u> (grupo 5).</p><p>Su principal característica es la <u>liquidez</u>. Por ejemplo, las <u>mercaderías</u> se venden, los <u>clientes</u> pagan, y el efectivo se usa para pagar proveedores.</p><p>Es clave para analizar la <u>solvencia a corto plazo</u>. Debe valorarse al <u>costo</u> o <u>valor neto realizable</u>. Su gestión asegura la continuidad operativa.</p>"
                     }
-                    // 29 más...
                 ]
             },
             "patrimonio-neto": {
@@ -587,14 +562,13 @@
                         correct: [0, 1, 2],
                         saber_mas: "<p>El <u>patrimonio neto</u> representa la parte residual de los activos tras deducir todos los pasivos. Está compuesto por <u>capital social</u>, <u>reservas</u>, <u>resultados acumulados</u> y <u>subvenciones recibidas</u>.</p><p>Las <u>reservas</u> pueden ser <u>legales</u> (obligatorias), <u>estatutarias</u> o <u>voluntarias</u>. Su función es reforzar la solvencia y autofinanciar la empresa.</p><p>Las <u>deudas a largo plazo</u> son pasivos, no parte del patrimonio. El patrimonio neto es clave para evaluar la estabilidad financiera.</p>"
                     }
-                    // 29 más...
                 ]
             },
             "pasivo-corriente": {
                 title: "Pasivo Corriente y No Corriente",
                 questions: [
                     {
-                        intro: "Los pasivos representan obligaciones presentes de la empresa surgidas de eventos pasados, cuya liquidación implica salida de recursos.",
+                        intro: "Los pasivos representan obligaciones presentes de la empresa surgidas de eventos pasados.",
                         question: "1. ¿Qué define a un pasivo según el marco conceptual?",
                         options: [
                             "Obligación presente",
@@ -605,7 +579,6 @@
                         correct: [0, 1, 2],
                         saber_mas: "<p>Un <u>pasivo</u> es una obligación presente surgida de eventos pasados, cuya liquidación espera generar una <u>salida de recursos</u> con beneficios económicos.</p><p>El <u>pasivo corriente</u> vence en menos de un año (proveedores, deudas bancarias). El <u>no corriente</u> tiene vencimiento superior (préstamos a largo plazo, provisiones).</p><p>Las <u>provisiones</u> son pasivos cuando existe obligación actual, aunque el monto sea incierto. Su correcto reconocimiento es clave para la <u>imagen fiel</u>.</p>"
                     }
-                    // 29 más...
                 ]
             }
         };
