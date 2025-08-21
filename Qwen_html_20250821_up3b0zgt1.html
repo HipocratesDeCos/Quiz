@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperQuiz</title>
+    <style>
+        /* Reset y configuración base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Páginas */
+        .page {
+            display: none;
+            flex: 1;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Menú principal */
+        .quiz-menu {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+
+        .quiz-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Botones principales */
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 20px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Quiz container */
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            flex: 1;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-home {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-home:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Instrucciones */
+        .instructions {
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .instructions p {
+            margin: 0;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+
+        /* Pregunta */
+        .question {
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .question-intro {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+
+        .question-intro p {
+            margin: 0;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Opciones */
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-color: #007bff;
+            color: white;
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+            border-color: #28a745;
+            color: white;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #ff7979 0%, #eb4d4b 100%);
+            border-color: #dc3545;
+            color: white;
+        }
+
+        /* Contenedor de botones de pregunta */
+        .question-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        /* Botón validar */
+        .btn-validate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            flex: 0 0 auto;
+        }
+
+        .btn-validate:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-validate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Botón de información adicional */
+        .info-btn {
+            color: #9b59b6;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            flex: 0 0 auto;
+        }
+
+        .info-btn:hover {
+            color: #8e44ad;
+        }
+
+        .info-btn.clicked {
+            color: #3498db !important;
+            text-decoration: underline;
+        }
+
+        /* Modal de información adicional */
+        .info-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+        }
+
+        .info-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .info-modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .info-modal-body {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-modal-body h4 {
+            color: #333;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .info-modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .info-modal-body ul {
+            margin: 10px 0 15px 20px;
+        }
+
+        .info-modal-body li {
+            margin-bottom: 5px;
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        /* Resultados finales */
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .results h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .results .score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .results .message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .quiz-container,
+            .quiz-menu {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .question-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .info-modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .quiz-container,
+            .quiz-menu {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SuperQuiz</h1>
+            <p>Plan General de Contabilidad y Marco Conceptual</p>
+        </div>
+
+        <!-- Página del menú principal -->
+        <div class="page active" id="menu-page">
+            <div class="quiz-menu">
+                <h2>Selecciona un Quiz</h2>
+                <div class="quiz-list" id="quiz-list">
+                    <!-- Los quizzes se cargan dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Página del quiz -->
+        <div class="page" id="quiz-page">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2 class="quiz-title" id="quiz-title">Título del Quiz</h2>
+                    <button class="btn btn-home" onclick="showPage('menu-page')">🏠 Inicio</button>
+                </div>
+
+                <div class="instructions">
+                    <p>💡 Puedes seleccionar una o varias respuestas antes de validar. Algunas preguntas tienen más de una opción correcta.</p>
+                </div>
+
+                <div id="quiz-content">
+                    <!-- Las preguntas se cargan dinámicamente aquí -->
+                </div>
+
+                <!-- Modal de información adicional -->
+                <div id="info-modal" class="info-modal">
+                    <div class="info-modal-content">
+                        <div class="info-modal-header">
+                            <h3 class="info-modal-title">Información Adicional</h3>
+                            <button class="close-btn" onclick="closeInfoModal()">✕</button>
+                        </div>
+                        <div class="info-modal-body" id="info-modal-body">
+                            <!-- Contenido dinámico -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results" id="final-results" style="display: none;">
+                    <h3>¡Quiz Completado!</h3>
+                    <div class="score" id="final-score">0%</div>
+                    <div class="message" id="final-message">¡Buen trabajo!</div>
+                    <button class="btn" onclick="showPage('menu-page')">🏠 Volver al Menú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de los quizzes
+        const quizData = {
+            "contabilidad-basica": {
+                title: "Introducción al Plan General de Contabilidad",
+                questions: [
+                    {
+                        intro: "El Plan General de Contabilidad (PGC) es el marco normativo que regula la contabilidad en España. Establece los principios, criterios y normas contables que deben seguir las empresas para elaborar sus estados financieros. Su objetivo principal es homogeneizar la información contable y garantizar que sea útil para la toma de decisiones económicas.",
+                        question: "¿Cuáles son los objetivos principales del Plan General de Contabilidad?",
+                        options: [
+                            "Homogeneizar la información contable entre empresas",
+                            "Garantizar la utilidad de la información para la toma de decisiones",
+                            "Establecer criterios fiscales para el cálculo de impuestos",
+                            "Facilitar la comparabilidad de la información financiera"
+                        ],
+                        correct: [0, 1, 3],
+                        additionalInfo: {
+                            title: "Plan General de Contabilidad - Marco Normativo",
+                            content: `
+                                <h4>Objetivos del PGC:</h4>
+                                <ul>
+                                    <li><strong>Homogeneización:</strong> Establecer criterios únicos para todas las empresas</li>
+                                    <li><strong>Utilidad:</strong> Proporcionar información relevante para decisiones económicas</li>
+                                    <li><strong>Comparabilidad:</strong> Permitir comparar información entre empresas y períodos</li>
+                                    <li><strong>Transparencia:</strong> Facilitar la comprensión de la situación empresarial</li>
+                                </ul>
+                                
+                                <h4>Estructura del PGC:</h4>
+                                <p>Consta de cinco partes: Marco conceptual, Normas de registro y valoración, Cuentas anuales, Cuadro de cuentas y Definiciones y relaciones contables.</p>
+                                
+                                <h4>Ámbito de Aplicación:</h4>
+                                <p>Aplicable a todas las empresas españolas, con adaptaciones sectoriales específicas para ciertos sectores como entidades financieras o seguros.</p>
+                            `
+                        }
+                    },
+                    {
+                        intro: "El marco conceptual de la contabilidad define los conceptos fundamentales sobre los que se basa la información financiera. Incluye las características cualitativas de la información contable como la relevancia, fiabilidad, comparabilidad y comprensibilidad. Estas características aseguran que los estados financieros sean útiles para los usuarios.",
+                        question: "¿Cuáles son las características cualitativas fundamentales de la información contable?",
+                        options: [
+                            "Relevancia y fiabilidad",
+                            "Comprensibilidad y comparabilidad",
+                            "Materialidad y prudencia",
+                            "Verificabilidad y representación fiel"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "Los elementos de los estados financieros son los componentes básicos que reflejan la situación económica y financiera de una empresa. Se clasifican en elementos relacionados con la situación financiera (activos, pasivos y patrimonio neto) y elementos relacionados con el rendimiento (ingresos y gastos).",
+                        question: "¿Cuáles son los elementos básicos de los estados financieros?",
+                        options: [
+                            "Activos, pasivos y patrimonio neto",
+                            "Ingresos y gastos",
+                            "Flujos de efectivo",
+                            "Capital social"
+                        ],
+                        correct: [0, 1]
+                    },
+                    {
+                        intro: "Un activo es un recurso controlado por la empresa como resultado de eventos pasados, del cual se espera obtener beneficios económicos futuros. Para ser reconocido como activo, debe cumplir criterios de identificabilidad, control y beneficio económico futuro. Los activos se clasifican según su naturaleza y liquidez.",
+                        question: "¿Qué características debe cumplir un elemento para ser considerado activo?",
+                        options: [
+                            "Ser controlado por la empresa",
+                            "Resultar de eventos pasados",
+                            "Proporcionar beneficios económicos futuros",
+                            "Tener valor de mercado conocido"
+                        ],
+                        correct: [0, 1, 2]
+                    },
+                    {
+                        intro: "Los pasivos representan obligaciones presentes de la empresa surgidas como consecuencia de eventos pasados, cuya liquidación se espera que resulte en una salida de recursos que incorporan beneficios económicos. Los pasivos incluyen deudas, provisiones y otras obligaciones.",
+                        question: "¿Qué define a un pasivo en contabilidad?",
+                        options: [
+                            "Una obligación presente de la empresa",
+                            "Un compromiso futuro de pago",
+                            "Resulta de eventos pasados",
+                            "Su liquidación implica salida de beneficios económicos"
+                        ],
+                        correct: [0, 2, 3]
+                    }
+                ]
+            },
+            "inversion-no-corriente": {
+                title: "Inversión No Corriente - Activo Fijo",
+                questions: [
+                    {
+                        intro: "El activo no corriente comprende los elementos del patrimonio destinados a servir de forma duradera en la actividad de la empresa. Se caracterizan por su permanencia en la empresa superior al año y por no estar destinados a la venta. Incluyen inmovilizado material, intangible e inversiones financieras a largo plazo.",
+                        question: "¿Cuáles son las características principales del activo no corriente?",
+                        options: [
+                            "Permanencia en la empresa superior a un año",
+                            "Destinados a servir de forma duradera en la actividad",
+                            "Están destinados para la venta inmediata",
+                            "No están destinados a la venta en el curso normal de la explotación"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "El inmovilizado material son elementos tangibles, muebles o inmuebles, que la empresa utiliza en su proceso productivo o para proporcionar bienes y servicios. Incluye terrenos, construcciones, maquinaria, equipos informáticos, mobiliario y vehículos. Se valoran inicialmente por su coste de adquisición o producción.",
+                        question: "¿Qué elementos forman parte del inmovilizado material?",
+                        options: [
+                            "Terrenos y construcciones",
+                            "Maquinaria y equipos para procesos de información",
+                            "Patentes y marcas",
+                            "Mobiliario y elementos de transporte"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "La amortización es la distribución sistemática del valor amortizable de un activo a lo largo de su vida útil. El valor amortizable es el coste de adquisición menos el valor residual. Se debe amortizar de forma sistemática y racional, normalmente mediante el método lineal, durante la vida útil estimada del bien.",
+                        question: "¿Cómo se calcula y aplica la amortización del inmovilizado?",
+                        options: [
+                            "Valor amortizable = Coste - Valor residual",
+                            "Se distribuye a lo largo de la vida útil del activo",
+                            "Se aplica solo cuando el activo genera pérdidas",
+                            "Debe ser sistemática y racional"
+                        ],
+                        correct: [0, 1, 3]
+                    }
+                ]
+            },
+            "inversion-corriente": {
+                title: "Inversión Corriente - Activo Circulante",
+                questions: [
+                    {
+                        intro: "El activo corriente incluye elementos que se espera realizar, vender o consumir en el curso normal del ciclo de explotación de la empresa, que normalmente es de un año. Comprende existencias, deudores comerciales, inversiones financieras a corto plazo, efectivo y otros activos líquidos. Su característica principal es la liquidez y rotación.",
+                        question: "¿Cuáles son las características del activo corriente?",
+                        options: [
+                            "Se realiza en el curso normal del ciclo de explotación",
+                            "Generalmente se convierte en efectivo en menos de un año",
+                            "Incluye elementos destinados al uso permanente",
+                            "Comprende efectivo y equivalentes de efectivo"
+                        ],
+                        correct: [0, 1, 3]
+                    },
+                    {
+                        intro: "Las existencias son activos mantenidos para la venta en el curso ordinario del negocio, en proceso de producción para dicha venta, o en forma de materiales o suministros para ser consumidos en el proceso de producción o prestación de servicios. Se clasifican en materias primas, productos en curso, productos terminados y mercaderías.",
+                        question: "¿Qué tipos de existencias reconoce la contabilidad?",
+                        options: [
+                            "Materias primas y otros aprovisionamientos",
+                            "Productos en curso y productos terminados",
+                            "Mercaderías para reventa",
+                            "Inmovilizado material disponible para venta"
+                        ],
+                        correct: [0, 1, 2]
+                    }
+                ]
+            },
+            "patrimonio-neto": {
+                title: "Patrimonio Neto - Capital y Reservas",
+                questions: [
+                    {
+                        intro: "El patrimonio neto constituye la parte residual de los activos de la empresa una vez deducidos todos sus pasivos. Comprende los fondos propios y otros instrumentos de patrimonio neto. Los fondos propios incluyen el capital, las reservas, los resultados de ejercicios anteriores y el resultado del ejercicio, así como otros instrumentos específicos.",
+                        question: "¿Qué elementos componen el patrimonio neto de una empresa?",
+                        options: [
+                            "Capital social y reservas",
+                            "Resultados de ejercicios anteriores y del ejercicio actual",
+                            "Subvenciones, donaciones y legados recibidos",
+                            "Deudas a largo plazo"
+                        ],
+                        correct: [0, 1, 2],
+                        additionalInfo: {
+                            title: "Componentes del Patrimonio Neto",
+                            content: `
+                                <h4>Fondos Propios:</h4>
+                                <ul>
+                                    <li><strong>Capital:</strong> Aportaciones de socios o accionistas</li>
+                                    <li><strong>Prima de emisión:</strong> Sobreprecio pagado por encima del valor nominal</li>
+                                    <li><strong>Reservas:</strong> Beneficios retenidos de ejercicios anteriores</li>
+                                    <li><strong>Resultado del ejercicio:</strong> Beneficio o pérdida del período actual</li>
+                                </ul>
+                                
+                                <h4>Otros instrumentos de patrimonio neto:</h4>
+                                <ul>
+                                    <li>Subvenciones, donaciones y legados recibidos</li>
+                                    <li>Diferencias de conversión</li>
+                                    <li>Ajustes por cambios de valor</li>
+                                </ul>
+                                
+                                <p>El patrimonio neto representa la participación de los propietarios en la empresa y actúa como garantía frente a terceros.</p>
+                            `
+                        }
+                    },
+                    {
+                        intro: "El capital social representa las aportaciones realizadas por los socios o accionistas. Puede ser dinerario (en efectivo) o no dinerario (en especie). El capital suscrito es el comprometido por los socios, mientras que el capital desembolsado es el efectivamente aportado. La diferencia constituye dividendos pasivos.",
+                        question: "¿Cómo se diferencia el capital suscrito del capital desembolsado?",
+                        options: [
+                            "Capital suscrito es el comprometido por los socios",
+                            "Capital desembolsado es el efectivamente aportado",
+                            "La diferencia son los dividendos pasivos",
+                            "Ambos conceptos son siempre iguales"
+                        ],
+                        correct: [0, 1, 2],
+                        additionalInfo: {
+                            title: "Capital Social: Suscrito vs Desembolsado",
+                            content: `
+                                <h4>Capital Suscrito:</h4>
+                                <p>Es el importe total que los socios se han comprometido a aportar a la sociedad según los estatutos.</p>
+                                
+                                <h4>Capital Desembolsado:</h4>
+                                <p>Es la parte del capital suscrito que los socios han aportado efectivamente a la empresa.</p>
+                                
+                                <h4>Dividendos Pasivos:</h4>
+                                <p>Representan la deuda que mantienen los socios con la empresa por la parte del capital suscrito pero no desembolsado.</p>
+                                
+                                <p><strong>Ejemplo:</strong> Si una sociedad tiene un capital de 100.000€ y los socios han aportado 60.000€, el capital suscrito es 100.000€, el desembolsado 60.000€ y los dividendos pasivos 40.000€.</p>
+                            `
+                        }
+                    },
+                    {
+                        intro: "Las reservas son beneficios retenidos en la empresa procedentes de ejercicios anteriores o de operaciones específicas. Se clasifican en reservas legales (obligatorias por ley), estatutarias (establecidas en estatutos), voluntarias (acordadas por la junta) y especiales (por normativa específica). Su función es reforzar la solvencia y autofinanciar la empresa.",
+                        question: "¿Qué tipos de reservas puede constituir una empresa?",
+                        options: [
+                            "Reserva legal obligatoria",
+                            "Reservas estatutarias y voluntarias",
+                            "Reservas especiales por normativa"
+                        ],
+                        correct: [0, 1, 2]
+                    }
+                ]
+            }
+        };
+
+        // Función para mostrar una página
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Función para cargar un quiz
+        function loadQuiz(quizId) {
+            const quiz = quizData[quizId];
+            document.getElementById('quiz-title').textContent = quiz.title;
+            const content = document.getElementById('quiz-content');
+            content.innerHTML = '';
+
+            quiz.questions.forEach((q, index) => {
+                let infoBtnHtml = '';
+                if (q.additionalInfo) {
+                    infoBtnHtml = `<span class="info-btn" onclick="openInfoModal(this, ${JSON.stringify(q)})">¿Más información?</span>`;
+                }
+
+                content.innerHTML += `
+                    <div class="question">
+                        ${q.intro ? `<div class="question-intro"><p>${q.intro}</p></div>` : ''}
+                        <div class="question-text">${q.question}</div>
+                        <div class="options" id="options-${index}">
+                            ${q.options.map((opt, i) => `
+                                <div class="option" onclick="toggleSelect(this, ${index}, ${i})">${opt}</div>
+                            `).join('')}
+                        </div>
+                        <div class="feedback" id="feedback-${index}" style="display:none;"></div>
+                        <div class="question-actions">
+                            <button class="btn btn-validate" onclick="validateAnswer(${index}, ${JSON.stringify(q.correct)})">Validar respuesta</button>
+                            ${infoBtnHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            showPage('quiz-page');
+        }
+
+        // Simulación de selección de opción
+        function toggleSelect(option, qIndex, oIndex) {
+            option.classList.toggle('selected');
+        }
+
+        // Validar respuesta
+        function validateAnswer(qIndex, correct) {
+            const options = document.querySelectorAll(`#options-${qIndex} .option`);
+            const feedback = document.getElementById(`feedback-${qIndex}`);
+            let selected = [];
+
+            options.forEach((opt, i) => {
+                if (opt.classList.contains('selected')) {
+                    selected.push(i);
+                }
+            });
+
+            if (selected.length === 0) {
+                feedback.textContent = 'Selecciona al menos una opción.';
+                feedback.className = 'feedback incorrect';
+                feedback.style.display = 'block';
+                return;
+            }
+
+            const isCorrect = selected.length === correct.length && selected.every(i => correct.includes(i)) && correct.every(i => selected.includes(i));
+
+            if (isCorrect) {
+                feedback.textContent = '¡Correcto!';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrecto. Revisa tus selecciones.';
+                feedback.className = 'feedback incorrect';
+            }
+            feedback.style.display = 'block';
+
+            options.forEach((opt, i) => {
+                if (correct.includes(i)) {
+                    opt.classList.add('correct');
+                } else if (selected.includes(i) && !correct.includes(i)) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+
+            document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
+        }
+
+        // Abrir modal con info adicional
+        function openInfoModal(btn, question) {
+            const modal = document.getElementById('info-modal');
+            const title = document.querySelector('.info-modal-title');
+            const body = document.getElementById('info-modal-body');
+
+            title.textContent = question.additionalInfo.title || 'Información Adicional';
+            body.innerHTML = question.additionalInfo.content;
+            modal.style.display = 'flex';
+
+            // Marcar botón como clicado
+            btn.classList.add('clicked');
+        }
+
+        // Cerrar modal
+        function closeInfoModal() {
+            document.getElementById('info-modal').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('info-modal');
+            if (event.target === modal) {
+                closeInfoModal();
+            }
+        };
+
+        // Inicializar menú
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizList = document.getElementById('quiz-list');
+            for (const [id, quiz] of Object.entries(quizData)) {
+                const btn = document.createElement('button');
+                btn.className = 'btn';
+                btn.textContent = quiz.title;
+                btn.onclick = () => loadQuiz(id);
+                quizList.appendChild(btn);
+            }
+        });
+    </script>
+</body>
+</html>
