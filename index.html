@@ -48,6 +48,8 @@
             display: flex;
             flex-direction: column;
         }
+
+        /* === Página principal === */
         .main-menu {
             background: white;
             border-radius: 20px;
@@ -90,30 +92,58 @@
             box-shadow: none;
             pointer-events: none;
         }
+
+        /* === Página de menú de temas (centrado) === */
         .quiz-menu {
             background: white;
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             flex: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .quiz-menu h2 {
+            text-align: center;
+            margin-bottom: 20px;
         }
         .quiz-list {
             display: grid;
             gap: 15px;
             margin-top: 20px;
-            justify-items: center;
         }
         .quiz-list .btn {
             max-width: 400px;
             width: 100%;
+            margin: 0 auto;
             text-align: center;
         }
+        .btn-home {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            display: block;
+            margin: 20px auto 0;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-home:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* === Página del quiz (60% del ancho, centrado) === */
         .quiz-container {
             background: white;
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             flex: 1;
+            max-width: 60%; /* 60% del contenedor */
+            margin: 0 auto;
+            width: 100%;
         }
         .quiz-header {
             display: flex;
@@ -127,15 +157,6 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: #333;
-        }
-        .btn-home {
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-        .btn-home:hover {
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
         }
         .instructions {
             background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 100%);
@@ -211,7 +232,6 @@
         .question-actions {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
@@ -219,17 +239,15 @@
         .btn-validate {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            padding: 12px 24px;
+            padding: 12px 20px;
             font-size: 1rem;
             max-width: 200px;
-            width: auto;
-            border-radius: 12px;
-            margin: 0 auto;
-            display: inline-block;
-            flex: 0 0 auto;
-            color: white;
+            width: 100%;
             border: none;
+            border-radius: 12px;
+            color: white;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
         .btn-validate:hover {
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
@@ -248,11 +266,54 @@
             cursor: pointer;
             padding: 0;
             margin: 0 10px;
-            display: inline-block;
         }
         .btn-saber-mas:hover {
             color: #555;
         }
+        .feedback {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .results h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .results .score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+        .results .message {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -309,48 +370,8 @@
             border-bottom: 1px dotted #007bff;
             cursor: help;
         }
-        .feedback {
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            font-weight: 500;
-        }
-        .feedback.correct {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border: 2px solid #28a745;
-            color: #155724;
-        }
-        .feedback.incorrect {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-            border: 2px solid #dc3545;
-            color: #721c24;
-        }
-        .results {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-        .results h3 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        .results .score {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-        }
-        .results .message {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -360,6 +381,9 @@
             }
             .quiz-container, .quiz-menu, .main-menu {
                 padding: 20px;
+            }
+            .quiz-container {
+                max-width: 90%; /* Ajuste en móvil */
             }
             .question-text {
                 font-size: 1.1rem;
@@ -375,8 +399,14 @@
             }
             .question-actions {
                 flex-direction: column;
-                align-items: stretch;
+                align-items: center;
                 gap: 10px;
+            }
+            .btn-validate {
+                max-width: 100%;
+            }
+            .btn-saber-mas {
+                margin: 0;
             }
         }
     </style>
@@ -398,6 +428,7 @@
             </div>
         </div>
     </div>
+
     <!-- Menú de contabilidad -->
     <div class="page" id="menu-page">
         <div class="header">
@@ -407,9 +438,10 @@
         <div class="quiz-menu">
             <h2>Selecciona un tema</h2>
             <div class="quiz-list" id="quiz-list"></div>
-            <button class="btn btn-home" style="margin-top: 20px;" onclick="showPage('main-page')">← Volver</button>
+            <button class="btn btn-home" onclick="showPage('main-page')">← Volver</button>
         </div>
     </div>
+
     <!-- Página del quiz -->
     <div class="page" id="quiz-page">
         <div class="quiz-container">
@@ -429,6 +461,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal Saber más -->
     <div class="modal" id="saberMasModal">
         <div class="modal-content">
@@ -437,6 +470,7 @@
             <div id="saberMasContent"></div>
         </div>
     </div>
+
     <script>
         const quizData = {
             "contabilidad-basica": {
@@ -537,10 +571,12 @@
                 ]
             }
         };
+
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
+
         function loadQuiz(quizId) {
             const quiz = quizData[quizId];
             document.getElementById('quiz-title').textContent = quiz.title;
@@ -566,9 +602,11 @@
             });
             showPage('quiz-page');
         }
+
         function toggleSelect(option, qIndex, oIndex) {
             option.classList.toggle('selected');
         }
+
         function validateAnswer(qIndex, correct) {
             const options = document.querySelectorAll(`#options-${qIndex} .option`);
             const feedback = document.getElementById(`feedback-${qIndex}`);
@@ -593,6 +631,7 @@
             });
             document.querySelector(`#options-${qIndex}`).previousElementSibling.querySelector('.btn-validate').disabled = true;
         }
+
         function openModal(qIndex, quizId) {
             const modal = document.getElementById('saberMasModal');
             const content = document.getElementById('saberMasContent');
@@ -600,13 +639,16 @@
             content.innerHTML = question.saber_mas;
             modal.style.display = 'flex';
         }
+
         function closeModal() {
             document.getElementById('saberMasModal').style.display = 'none';
         }
+
         window.onclick = function(event) {
             const modal = document.getElementById('saberMasModal');
             if (event.target === modal) closeModal();
         };
+
         document.addEventListener('DOMContentLoaded', () => {
             const quizList = document.getElementById('quiz-list');
             for (const [id, quiz] of Object.entries(quizData)) {
