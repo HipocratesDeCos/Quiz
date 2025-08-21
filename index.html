@@ -116,11 +116,17 @@
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .quiz-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: #333;
+        }
+        .quiz-buttons {
+            display: flex;
+            gap: 10px;
         }
         .btn-home {
             background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
@@ -356,6 +362,10 @@
                 gap: 15px;
                 text-align: center;
             }
+            .quiz-buttons {
+                width: 100%;
+                justify-content: center;
+            }
             .question-actions {
                 flex-direction: column;
                 align-items: stretch;
@@ -383,7 +393,6 @@
     </div>
 
     <!-- Menú de contabilidad -->
- 
     <div class="page" id="menu-page">
         <div class="header">
             <h1>Contabilidad financiera</h1>
@@ -401,7 +410,10 @@
         <div class="quiz-container">
             <div class="quiz-header">
                 <h2 class="quiz-title" id="quiz-title">Título del Quiz</h2>
-                <button class="btn btn-home" onclick="showPage('menu-page')">🏠 Inicio</button>
+                <div class="quiz-buttons">
+                    <button class="btn btn-home" onclick="showPage('menu-page')">Elige otro tema</button>
+                    <button class="btn btn-home" onclick="showPage('main-page')">Inicio</button>
+                </div>
             </div>
             <div class="instructions">
                 <p>💡 Selecciona una o varias respuestas. Algunas preguntas tienen más de una correcta.</p>
@@ -411,7 +423,8 @@
                 <h3>¡Quiz Completado!</h3>
                 <div class="score" id="final-score">0%</div>
                 <div class="message" id="final-message">¡Buen trabajo!</div>
-                <button class="btn" onclick="showPage('menu-page')">Volver al menú</button>
+                <button class="btn" onclick="showPage('menu-page')">Elige otro tema</button>
+                <button class="btn btn-home" style="margin-top: 10px;" onclick="showPage('main-page')">Inicio</button>
             </div>
         </div>
     </div>
@@ -427,175 +440,174 @@
 
     <script>
         const quizData = {
-            "contabilidad-basica": {
-                title: "Introducción al Plan General de Contabilidad",
+            "inversion-no-corriente": {
+                title: "Inversión No Corriente - Activo Fijo",
                 questions: [
                     {
-                        intro: "El Plan General de Contabilidad (PGC) es el marco normativo que regula la contabilidad en España. Establece los principios, criterios y normas contables que deben seguir las empresas para elaborar sus estados financieros.",
-                        question: "1. ¿Cuál es el objetivo principal del Plan General de Contabilidad?",
+                        intro: "El activo no corriente comprende elementos destinados a servir de forma duradera en la actividad de la empresa.",
+                        question: "1. ¿Qué caracteriza al activo no corriente?",
                         options: [
-                            "Homogeneizar la información contable",
-                            "Garantizar la utilidad de la información para la toma de decisiones",
-                            "Establecer criterios fiscales",
-                            "Facilitar la comparabilidad"
+                            "Permanencia superior a un año",
+                            "Destinado a la venta inmediata",
+                            "No destinado a la venta",
+                            "Controlado por la empresa"
                         ],
-                        correct: [0, 1, 3],
-                        saber_mas: "<p>El <u>objetivo principal del Plan General de Contabilidad</u> es proporcionar un marco común que permita la elaboración de estados financieros <u>homogéneos, comprensibles y comparables</u>. Esto es fundamental para que inversores, acreedores y otros usuarios puedan tomar decisiones económicas fundamentadas.</p><p>El PGC no solo regula el registro contable, sino que también garantiza la <u>transparencia</u> y <u>calidad</u> de la información. Por ejemplo, una empresa que cambia de sector debe seguir los mismos criterios para mantener la <u>continuidad</u> y <u>comparabilidad</u>.</p><p>Además, el PGC establece que la información debe ser <u>relevante</u> y <u>fiable</u>, cumpliendo con el marco conceptual. Esto asegura la <u>imagen fiel</u> del patrimonio, situación financiera y resultados.</p>"
+                        correct: [0, 2, 3],
+                        saber_mas: "<p>El <u>activo no corriente</u> se compone de activos que la empresa utiliza de forma duradera. Su principal característica es la <u>permanencia</u> superior al año o ciclo de explotación.</p><p>No está destinado a la venta, sino a participar en el proceso productivo. Se clasifica en <u>inmovilizado material</u>, <u>intangible</u> y <u>financiero</u>.</p><p>Según el PGC, se valora inicialmente por <u>coste de adquisición o producción</u> y se amortiza sistemáticamente (excepto terrenos).</p>"
                     },
                     {
-                        question: "2. ¿Qué característica cualitativa implica que la información influya en las decisiones económicas de los usuarios?",
-                        options: ["Relevancia", "Fiabilidad", "Comparabilidad", "Comprensibilidad"],
-                        correct: [0],
-                        saber_mas: "<p>La <u>relevancia</u> es una característica cualitativa fundamental que implica que la información contable influye en las decisiones económicas de los usuarios. Para ser relevante, debe tener <u>valor predictivo</u> o <u>valor confirmatorio</u>.</p><p>Por ejemplo, conocer el nivel de deuda de una empresa ayuda a prever su solvencia futura. La <u>materialidad</u> está relacionada con la relevancia: un dato es material si su omisión o error podría influir en las decisiones.</p><p>Según el marco conceptual del PGC, sin relevancia, la información pierde su utilidad principal, aunque sea fiable o comparable.</p>"
-                    },
-                    {
-                        question: "3. ¿Qué principio contable exige que los ingresos y gastos se registren cuando se generan, no cuando se cobran o pagan?",
-                        options: ["Devengo", "Prudencia", "Importancia relativa", "Asociación de ingresos y gastos"],
-                        correct: [0],
-                        saber_mas: "<p>El <u>principio del devengo</u> establece que los ingresos y gastos deben reconocerse en el momento en que se generan, independientemente de cuándo se cobren o paguen. Es fundamental para la <u>imagen fiel</u> del resultado.</p><p>Por ejemplo, si una empresa vende en diciembre y cobra en enero, el ingreso se registra en diciembre. Este principio permite una adecuada <u>asociación de ingresos y gastos</u> en el período correspondiente.</p><p>El devengo es clave para diferenciar entre <u>tesorería</u> y <u>resultado</u>, evitando distorsiones por la cronología del cobro.</p>"
-                    },
-                    {
-                        question: "4. ¿Qué significa el principio de prudencia?",
+                        question: "2. ¿Qué se incluye en el inmovilizado intangible?",
                         options: [
-                            "Evitar sobrevalorar activos e ingresos",
-                            "Evitar infravalorar pasivos y gastos",
-                            "No compensar activos y pasivos",
-                            "Aplicar políticas contables uniformemente"
+                            "Investigación y desarrollo",
+                            "Propiedad industrial",
+                            "Fondo de comercio",
+                            "Aplicaciones informáticas"
                         ],
-                        correct: [0, 1],
-                        saber_mas: "<p>El <u>principio de prudencia</u> exige que se tenga precaución ante la incertidumbre. Implica que los activos e ingresos no se sobrevaloren, y que los pasivos y gastos no se infravaloren.</p><p>Por ejemplo, si hay dudas sobre el cobro a un cliente, se debe crear una provisión. Pero no se puede usar la prudencia para crear reservas ocultas, ya que eso afectaría la <u>fiabilidad</u> de la información.</p><p>Es un equilibrio: proteger a los usuarios sin distorsionar la realidad financiera.</p>"
+                        correct: [1, 2, 3],
+                        saber_mas: "<p>El <u>inmovilizado intangible</u> incluye activos sin forma física: <u>concesiones</u>, <u>patentes</u>, <u>fondo de comercio</u>, <u>software</u>, etc.</p><p>Los gastos de <u>investigación</u> se imputan al ejercicio, pero los de <u>desarrollo</u> pueden activarse si se cumplen ciertos requisitos (viabilidad técnica, intención de finalizar, capacidad de uso, beneficios futuros).</p><p>El <u>fondo de comercio</u> solo se reconoce por adquisición onerosa, no por generación interna.</p>"
                     },
                     {
-                        question: "5. ¿Qué elementos integran las cuentas anuales según el PGC?",
+                        question: "3. ¿Qué es un arrendamiento financiero?",
                         options: [
-                            "Balance, cuenta de pérdidas y ganancias, estado de cambios en el patrimonio neto",
-                            "Balance, memoria, estado de flujo de efectivo",
-                            "Balance, cuenta de pérdidas y ganancias, estado de cambios en el patrimonio neto, estado de flujo de efectivo y memoria",
-                            "Balance, cuenta de pérdidas y ganancias, memoria"
+                            "El arrendatario asume riesgos y beneficios de propiedad",
+                            "El arrendador mantiene los riesgos",
+                            "Se registra como activo y pasivo",
+                            "Es un gasto inmediato"
+                        ],
+                        correct: [0, 2],
+                        saber_mas: "<p>En un <u>arrendamiento financiero</u>, el arrendatario asume los <u>riesgos y beneficios</u> de la propiedad. Se registra un <u>activo</u> y un <u>pasivo financiero</u> por el menor entre el valor razonable del activo y el valor actual de las cuotas.</p><p>Este modelo se aplica cuando el arrendatario controla el uso del activo y se espera que obtenga beneficios económicos.</p>"
+                    },
+                    {
+                        question: "4. ¿Qué criterio se usa para valorar un activo financiero a coste amortizado?",
+                        options: [
+                            "Valor razonable",
+                            "Coste histórico",
+                            "Coste amortizado",
+                            "Valor neto realizable"
                         ],
                         correct: [2],
-                        saber_mas: "<p>Las <u>cuentas anuales</u> están formadas por cinco documentos principales:</p><ul><li><strong>Balance</strong>: muestra la situación financiera al cierre del ejercicio.</li><li><strong>Cuenta de pérdidas y ganancias</strong>: refleja los resultados del periodo.</li><li><strong>Estado de cambios en el patrimonio neto</strong>: detalla el movimiento del patrimonio.</li><li><strong>Estado de flujo de efectivo</strong>: muestra el movimiento de liquidez.</li><li><strong>Memoria</strong>: explica los datos y criterios utilizados.</li></ul><p>Esta estructura garantiza la transparencia y coherencia de la información.</p>"
+                        saber_mas: "<p>Un activo financiero se valora a <u>coste amortizado</u> si cumple dos condiciones: (1) el modelo de negocio es mantenerlo para cobrar flujos contractuales (no para negociar), y (2) los flujos son solo pagos de principal e intereses (test SPPI).</p><p>Se aplica a créditos comerciales, préstamos y bonos no negociados.</p>"
                     },
                     {
-                        question: "6. ¿Qué es un activo según el Marco Conceptual?",
+                        question: "5. ¿Qué activos se incluyen en el grupo 2 del PGC?",
                         options: [
-                            "Un recurso controlado por la empresa con expectativa de beneficios futuros",
-                            "Un derecho a recibir dinero en el futuro",
-                            "Un bien que pertenece a la empresa",
-                            "Un elemento que genera ingresos"
+                            "Inmovilizado material",
+                            "Inversiones inmobiliarias",
+                            "Inversiones financieras a largo plazo",
+                            "Existencias"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>Un <u>activo</u> es un recurso que la empresa controla como consecuencia de sucesos pasados, y del que espera obtener <u>beneficios económicos futuros</u>.</p><p>No basta con que el bien exista: debe haber <u>control efectivo</u> y <u>probabilidad de rendimientos</u>. Por ejemplo, un inmueble arrendado no es activo si no se tiene control.</p><p>La propiedad legal no es necesaria; lo importante es la <u>esencia económica</u> del recurso.</p>"
+                        correct: [0, 1, 2],
+                        saber_mas: "<p>El <u>grupo 2</u> del PGC incluye todos los activos no corrientes: <u>inmovilizado material</u>, <u>intangible</u>, <u>inversiones inmobiliarias</u> y <u>financieras a largo plazo</u>.</p><p>Las <u>existencias</u> pertenecen al grupo 3. Este agrupamiento facilita la clasificación en el balance.</p>"
                     },
                     {
-                        question: "7. ¿Qué define un pasivo?",
+                        question: "6. ¿Cuándo se puede activar un gasto de desarrollo?",
                         options: [
-                            "Una obligación presente derivada de eventos pasados",
-                            "Un compromiso futuro",
-                            "Una deuda con proveedores",
-                            "Un saldo a pagar"
+                            "Siempre que se incurra",
+                            "Solo si hay viabilidad técnica",
+                            "Si hay intención de finalizarlo",
+                            "Si generará beneficios futuros"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>Un <u>pasivo</u> es una obligación presente surgida de eventos pasados, cuya liquidación probablemente implique una <u>salida de recursos</u> con beneficios económicos.</p><p>Por ejemplo, un préstamo bancario es un pasivo porque existe una obligación actual. Si solo hubiera un contrato futuro, no sería un pasivo.</p><p>El concepto incluye también las <u>provisiones</u>, que son pasivos estimados, como gastos de desmantelamiento o litigios pendientes.</p>"
+                        correct: [1, 2, 3],
+                        saber_mas: "<p>Para activar un gasto de desarrollo, debe demostrarse: <u>viabilidad técnica</u>, <u>intención de finalizarlo</u>, <u>capacidad para usarlo</u> y <u>beneficios económicos futuros</u>.</p><p>Esto asegura que solo se capitalicen proyectos viables, no meras investigaciones preliminares.</p>"
                     },
                     {
-                        question: "8. ¿Qué es el patrimonio neto?",
+                        question: "7. ¿Qué es el valor en uso de un activo?",
                         options: [
-                            "La parte residual de los activos menos los pasivos",
-                            "Los fondos aportados por los socios",
-                            "Los resultados acumulados",
-                            "El capital social"
+                            "Valor actual de flujos de efectivo futuros esperados",
+                            "Precio de mercado",
+                            "Coste de reposición",
+                            "Valor neto realizable"
                         ],
                         correct: [0],
-                        saber_mas: "<p>El <u>patrimonio neto</u> es la diferencia entre los activos y los pasivos. Representa los <u>fondos propios</u> de la empresa.</p><p>Incluye el <u>capital social</u>, las <u>reservas</u> y los <u>resultados acumulados</u>. No es solo el capital aportado, sino todo lo que pertenece a los propietarios tras deducir las deudas.</p><p>Es clave para evaluar la solvencia y estabilidad financiera.</p>"
+                        saber_mas: "<p>El <u>valor en uso</u> es el valor actual de los flujos de efectivo netos que se esperan obtener del activo durante su vida útil.</p><p>Se calcula descontando los flujos futuros usando un tipo de interés que incluye el riesgo del activo. Es clave para evaluar deterioro.</p>"
                     },
                     {
-                        question: "9. ¿Qué es un ingreso imputado?",
+                        question: "8. ¿Qué activos se clasifican como mantenidos para la venta?",
                         options: [
-                            "Un incremento de activos o decremento de pasivos que altera positivamente el patrimonio neto",
-                            "Un cobro realizado",
-                            "Un derecho a cobrar",
-                            "Un aumento de capital"
+                            "Activos cuya recuperación se espera por venta",
+                            "Existencias",
+                            "Inversiones a corto plazo",
+                            "Activos que ya no se usan"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>Un <u>ingreso imputado</u> es cualquier entrada o incremento de activos, o decremento de pasivos, que aumenta positivamente el patrimonio neto, siempre que no proceda de aportaciones de propietarios.</p><p>Por ejemplo, la venta de productos genera un ingreso imputado, incluso si el cobro se hace después.</p><p>Es diferente del <u>ingreso inicial</u> (el total pactado), que puede no estar completamente devengado.</p>"
+                        correct: [0, 3],
+                        saber_mas: "<p>Los activos mantenidos para la venta son aquellos cuya recuperación se espera <u>principalmente por su venta</u>, no por su uso continuado.</p><p>Deben estar disponibles inmediatamente para venta y su venta debe ser muy probable. Se miden al menor entre valor contable y valor razonable menos costes de venta.</p>"
                     },
                     {
-                        question: "10. ¿Qué es un gasto imputado?",
+                        question: "9. ¿Qué es un activo financiero a valor razonable con cambios en el patrimonio neto?",
                         options: [
-                            "Un decremento de activos o incremento de pasivos que reduce el patrimonio neto",
-                            "Un pago realizado",
-                            "Un costo anticipado",
-                            "Un descuento recibido"
+                            "Instrumentos de patrimonio no mantenidos para negociar",
+                            "Acciones mantenidas para obtener rentabilidad a largo plazo",
+                            "Activos mantenidos para especulación",
+                            "Derivados financieros"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>Un <u>gasto imputado</u> es cualquier salida, consumo o deterioro de activos, o incremento de pasivos, que disminuye negativamente el patrimonio neto, siempre que no sea una distribución a propietarios.</p><p>Por ejemplo, el consumo de mercaderías o el pago de salarios son gastos imputados.</p><p>Se diferencia del <u>gasto inicial</u> (costo total), que puede no estar totalmente devengado.</p>"
+                        correct: [0, 1],
+                        saber_mas: "<p>Esta categoría incluye activos financieros, como acciones, que no se mantienen para negociar, pero que la empresa decide valorar al <u>valor razonable</u> con cambios en el <u>patrimonio neto</u>.</p><p>Los dividendos se reconocen en resultados, pero las plusvalías no afectan al resultado hasta su enajenación.</p>"
                     },
                     {
-                        question: "11. ¿Qué criterio de valoración se aplica al coste histórico?",
+                        question: "10. ¿Qué se registra en un arrendamiento financiero?",
                         options: [
-                            "El precio de adquisición del activo",
-                            "El valor razonable",
-                            "El valor neto realizable",
-                            "El valor en uso"
+                            "Un inmovilizado y un pasivo financiero",
+                            "Un gasto inmediato",
+                            "Un activo y un ingreso",
+                            "Una inversión financiera"
                         ],
                         correct: [0],
-                        saber_mas: "<p>El <u>coste histórico</u> es el precio de adquisición del activo, incluyendo el importe pagado, los impuestos y gastos directamente atribuibles a su compra.</p><p>Para activos producidos internamente, incluye materiales, mano de obra y costes indirectos.</p><p>Es el método más utilizado por su <u>fiabilidad</u> y <u>objetividad</u>, aunque puede no reflejar el valor actual.</p>"
+                        saber_mas: "<p>En el momento inicial, se registra un <u>inmovilizado</u> (material o intangible) y un <u>pasivo financiero</u> por el menor entre el valor razonable del activo y el valor actual de las cuotas.</p><p>Este pasivo se amortiza con el método del interés efectivo.</p>"
                     },
                     {
-                        question: "12. ¿Qué es el valor razonable?",
+                        question: "11. ¿Qué es el fondo de comercio por adquisición?",
                         options: [
-                            "El precio que se recibiría por la venta de un activo en condiciones normales",
-                            "El costo de producción",
-                            "El valor neto realizable",
-                            "El valor en libros"
+                            "Diferencia entre el precio de compra y el valor razonable neto de activos adquiridos",
+                            "Gastos de publicidad",
+                            "Coste de desarrollo interno",
+                            "Amortización acumulada"
                         ],
                         correct: [0],
-                        saber_mas: "<p>El <u>valor razonable</u> es el importe que se recibiría por la venta de un activo, o se pagaría por la transferencia de un pasivo, en una transacción ordenada entre partes informadas e independientes.</p><p>Se basa en el mercado activo y se clasifica en tres niveles: precios cotizados (nivel 1), modelos con datos observables (nivel 2) y estimaciones con datos no observables (nivel 3).</p><p>Es útil para reflejar la <u>realidad económica</u> de los activos y pasivos.</p>"
+                        saber_mas: "<p>El <u>fondo de comercio</u> por adquisición es la diferencia entre el precio pagado y el valor razonable neto de los activos y pasivos adquiridos.</p><p>No se amortiza, pero sí se somete a pruebas de deterioro anuales. No se reconoce si se genera internamente.</p>"
                     },
                     {
-                        question: "13. ¿Qué es el valor neto realizable?",
+                        question: "12. ¿Qué activos financieros se valoran al coste?",
                         options: [
-                            "El importe esperado por la venta de un activo menos los costes de venta",
-                            "El valor razonable",
-                            "El costo amortizado",
-                            "El valor en uso"
+                            "Participaciones en empresas del grupo",
+                            "Acciones mantenidas para negociar",
+                            "Instrumentos de patrimonio no negociados",
+                            "Derivados"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>El <u>valor neto realizable</u> es el importe que se espera obtener por la venta de un activo en condiciones normales, menos los costes necesarios para su venta.</p><p>Es útil para determinar si un activo debe depreciarse por deterioro.</p><p>Por ejemplo, si un producto tiene un valor de mercado de 100€ y los costes de venta son 10€, su valor neto realizable es 90€.</p>"
+                        correct: [0, 2],
+                        saber_mas: "<p>Los activos financieros a <u>coste</u> incluyen participaciones en empresas del grupo, multigrupo y asociadas, salvo que se mantengan para negociar.</p><p>Se valoran a coste menos deterioro acumulado. Las pérdidas por deterioro se reconocen en resultados.</p>"
                     },
                     {
-                        question: "14. ¿Qué es el valor en uso?",
+                        question: "13. ¿Qué es el test SPPI?",
                         options: [
-                            "El valor actual de los flujos de efectivo futuros esperados",
-                            "El valor razonable",
-                            "El costo histórico",
-                            "El valor neto realizable"
+                            "Evalúa si los flujos contractuales son solo principal e intereses",
+                            "Determina la vida útil del activo",
+                            "Clasifica el modelo de negocio",
+                            "Evalúa la rentabilidad"
                         ],
                         correct: [0],
-                        saber_mas: "<p>El <u>valor en uso</u> es el valor actual de los flujos de efectivo netos que se esperan obtener del activo durante su vida útil.</p><p>Se calcula aplicando un tipo de descuento que incluye el riesgo del activo.</p><p>Es útil para evaluar si un activo debe mantenerse en el balance o si ha sufrido un deterioro.</p>"
+                        saber_mas: "<p>El <u>test SPPI</u> (Solamente Pagos de Principal e Intereses) verifica si los flujos contractuales del activo financiero consisten únicamente en pagos de principal e intereses.</p><p>Es uno de los dos criterios clave (junto al modelo de negocio) para clasificar activos financieros según el PGC.</p>"
                     },
                     {
-                        question: "15. ¿Qué es el coste amortizado?",
+                        question: "14. ¿Qué activos se deterioran?",
                         options: [
-                            "El importe inicial ajustado por intereses y amortización",
-                            "El valor razonable",
-                            "El costo histórico",
-                            "El valor en uso"
+                            "Inmovilizado intangible",
+                            "Inmovilizado material",
+                            "Existencias",
+                            "Inversiones financieras"
                         ],
-                        correct: [0],
-                        saber_mas: "<p>El <u>coste amortizado</u> es el importe al que fue inicialmente valorado un instrumento financiero, ajustado por la amortización de intereses utilizando el tipo de interés efectivo.</p><p>Se aplica a préstamos, créditos y bonos.</p><p>Permite reflejar la evolución del valor del instrumento financiero en el tiempo.</p>"
+                        correct: [0, 1, 3],
+                        saber_mas: "<p>Los activos no corrientes y las existencias están sujetos a <u>corrección valorativa por deterioro</u> cuando su valor contable supera el importe recuperable.</p><p>El deterioro se reconoce en resultados y puede revertirse (excepto en inmovilizado intangible).</p>"
                     },
                     {
-                        question: "16. ¿Qué es el principio de uniformidad?",
+                        question: "15. ¿Qué se contabiliza en 'Construcciones en curso'?",
                         options: [
-                            "Mantener las políticas contables consistentes en el tiempo",
-                            "Aplicar las mismas normas a todos los sectores",
-                            "Usar métodos de valoración homogéneos",
-                            "Ajustar las cuentas anuales a la normativa"
+                            "Costes de construcción no finalizada",
+                            "Amortización anual",
+                            "Gastos de administración",
+                            "Impuestos"
                         ],
                         correct: [0],
-                        saber_mas: "<p>El <u>principio de uniformidad</u> exige que, una vez elegido un criterio de registro y valoración, se mantenga en el tiempo y se aplique a todos los elementos similares.</p><p>Si se cambia, debe justificarse en la memoria y mostrar su impacto.</p><p>Garantiza la <u>comparabilidad</u> de las cuentas anuales de un año a otro.</p>"
+                        saber_mas: "<p>La cuenta <u>Construcciones en curso</u> (231) recoge los costes incurridos en la construcción de un inmueble que aún no está finalizado.</p><p>Al finalizar, se traslada al inmovilizado material. Los gastos consumidos se reflejan mediante la amortización, no directamente.</p>"
                     }
                 ]
             }
